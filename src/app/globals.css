@@ -3,6 +3,46 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  
+  /* Text styles */
+  --text-color: #ffffff;
+  --text-size-large: 2.25rem;
+  --text-size-normal: 1.125rem;
+}
+
+h1 {
+  font-size: 2.25rem;
+  color: var(--text-color);
+}
+
+h2 {
+  font-size: 1.875rem;
+  color: var(--text-color);
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: var(--text-color);
+}
+
+h4 {
+  font-size: 1.25rem;
+  color: var(--text-color);
+}
+
+h5 {
+  font-size: 1.125rem;
+  color: var(--text-color);
+}
+
+h6 {
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+p {
+  font-size: 1rem;
+  color: var(--text-color);
 }
 
 @theme inline {
