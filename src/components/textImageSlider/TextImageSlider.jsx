@@ -50,15 +50,17 @@ const TextImageSlider = ({
   // Single image mode (TextImage style)
   if (images.length === 1) {
     const imageContent = (
-      <div className="w-full md:w-1/2 relative min-h-[400px] p-4">
-        <Image
-          src={images[0]}
-          alt={title}
-          fill
-          className="object-cover rounded-lg"
-          sizes="(max-width: 768px) 100vw, 50vw"
-          priority={true}
-        />
+      <div className="w-full md:w-1/2 relative min-h-[400px] order-2 md:order-none">
+        <div className="absolute inset-0">
+          <Image
+            src={images[0]}
+            alt={title}
+            fill
+            className="object-cover rounded-lg"
+            sizes="(max-width: 768px) 100vw, 50vw"
+            priority={true}
+          />
+        </div>
       </div>
     );
 
@@ -98,7 +100,7 @@ const TextImageSlider = ({
   const visibleImages = getVisibleImages();
 
   const sliderContent = (
-    <div className="w-full md:w-1/2 relative h-full min-h-[400px] p-4">
+    <div className="w-full md:w-1/2 relative h-full min-h-[400px] order-2 md:order-none">
       <div className="absolute inset-0 overflow-hidden">
         <div
           className="flex h-full gap-4 transition-transform duration-500 ease-in-out"
