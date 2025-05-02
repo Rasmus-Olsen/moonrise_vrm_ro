@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import LanguageSwitch from "@/components/languageSwitcher/LanguageSwitch";
+import Navigation from "@/components/navigation/Navigation";
+import Footer from "@/components/footer/Footer";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const geistSans = Geist({
@@ -22,11 +23,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
         <LanguageProvider>
-          <LanguageSwitch />
-          {children}
+          <Navigation />
+          <main className="flex-grow">
+            <div className="container mx-auto px-4 md:px-0">
+              {children}
+            </div>
+          </main>
+          <Footer />
         </LanguageProvider>
       </body>
     </html>
