@@ -19,14 +19,17 @@ export default function Navigation() {
   ];
 
   return (
-    <nav className="p-4">
+    <nav className="relative z-50">
       <div className="container mx-auto">
         {/* Desktop and Mobile Header */}
-        <div className="flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold hover:opacity-80 transition-opacity">
+        <div className="flex justify-between items-center p-4">
+          <Link
+            href="/"
+            className="text-2xl font-bold hover:opacity-80 transition-opacity"
+          >
             Moonrise
           </Link>
-          
+
           {/* Burger Menu Button - Only visible on mobile */}
           <BurgerMenu isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
 
@@ -49,22 +52,30 @@ export default function Navigation() {
           </div>
         </div>
 
-        {/* Mobile Navigation - Only visible when menu is open */}
-        <div className={`${isOpen ? 'flex' : 'hidden'} md:hidden flex-col items-center space-y-4 pt-4`}>
-          {routes.map((route) => (
-            <Link
-              key={route.path}
-              href={route.path}
-              className={`hover:opacity-80 transition-opacity ${
-                pathname === route.path ? "opacity-100" : "opacity-80"
-              }`}
-              onClick={() => setIsOpen(false)} // Close menu when clicking a link
-            >
-              <TranslatedText>{route.label}</TranslatedText>
-            </Link>
-          ))}
-          <div className="pt-4">
-            <LanguageSwitch />
+        {/* Mobile Navigation - Absolute positioned */}
+        <div
+          className={`
+            absolute left-0 right-0 w-full bg-[var(--background)]
+            transition-all duration-300 ease-in-out md:hidden
+            ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}
+          `}
+        >
+          <div className="flex flex-col items-center space-y-6 py-4 pb-8">
+            {routes.map((route) => (
+              <Link
+                key={route.path}
+                href={route.path}
+                className={`text-lg hover:opacity-80 transition-opacity ${
+                  pathname === route.path ? "opacity-100" : "opacity-80"
+                }`}
+                onClick={() => setIsOpen(false)}
+              >
+                <TranslatedText>{route.label}</TranslatedText>
+              </Link>
+            ))}
+            <div className="pt-4">
+              <LanguageSwitch />
+            </div>
           </div>
         </div>
       </div>

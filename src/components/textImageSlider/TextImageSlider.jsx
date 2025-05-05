@@ -15,6 +15,7 @@ const TextImageSlider = ({
   sliderPosition = "left",
   buttonText,
   buttonLink,
+  overlayOpacity = 0,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -60,6 +61,12 @@ const TextImageSlider = ({
             sizes="(max-width: 768px) 100vw, 50vw"
             priority={true}
           />
+          {overlayOpacity > 0 && (
+            <div 
+              className="absolute inset-0 bg-black rounded-lg"
+              style={{ opacity: overlayOpacity }}
+            />
+          )}
         </div>
       </div>
     );
@@ -124,6 +131,12 @@ const TextImageSlider = ({
                   sizes="400px"
                   priority={true}
                 />
+                {overlayOpacity > 0 && (
+                  <div 
+                    className="absolute inset-0 bg-black rounded-lg"
+                    style={{ opacity: overlayOpacity }}
+                  />
+                )}
               </div>
             </div>
           ))}

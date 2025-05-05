@@ -28,9 +28,7 @@ export default function RootLayout({ children }) {
         <LanguageProvider>
           <Navigation />
           <main className="flex-grow">
-            <div className="container mx-auto px-4 md:px-0">
-              {children}
-            </div>
+            {children}
           </main>
           <Footer />
         </LanguageProvider>
