@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  
+  --background: #141a24;
+  --foreground: #ffffff;
+
   /* Text styles */
   --text-color: #ffffff;
   --text-size-large: 2.25rem;
@@ -54,13 +54,13 @@ p {
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #141a24;
     --foreground: #ededed;
   }
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
