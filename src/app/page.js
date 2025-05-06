@@ -8,61 +8,6 @@ import Process from "@/components/process/Process";
 import { FaMapMarkerAlt, FaComments, FaPencilRuler, FaClipboardCheck, FaPlay } from "react-icons/fa";
 
 export default function Home() {
-  const statsItems = [
-    { 
-      title: "Flere deltagere", 
-      value: 65, 
-      suffix: "%",
-      description: "Stigning i begivenhedsdeltagelse"
-    },
-    { 
-      title: "Støj reduktion", 
-      value: 90, 
-      suffix: "%",
-      description: "Sammenlignet med traditionelt fyrværkeri"
-    },
-    { 
-      title: "Mindre CO₂-udledning", 
-      value: 60, 
-      suffix: "%",
-      description: "Reduktion af CO2-fodaftryk"
-    },
-    { 
-      title: "Mindre affald", 
-      value: 500, 
-      suffix: "kg",
-      description: "I forhold til mellemstore fyrværkeri shows"
-    }
-  ];
-
-  const processItems = [
-    {
-      icon: FaMapMarkerAlt,
-      title: "Site Authorization & Assessment",
-      description: "Vi sikrer de nødvendige tilladelser og vurderer lokationen for sikkerhed"
-    },
-    {
-      icon: FaComments,
-      title: "Story Board Consultation",
-      description: "Vi diskuterer din vision og eventets krav med vores ekspertteam"
-    },
-    {
-      icon: FaPencilRuler,
-      title: "Design & Planning",
-      description: "Sammen skaber vi et skræddersyet droneshow tilpasset dit events tema"
-    },
-    {
-      icon: FaClipboardCheck,
-      title: "Pre-Flight Run-Through",
-      description: "Vi gennemfører en grundig generalprøve for at sikre alt kører perfekt"
-    },
-    {
-      icon: FaPlay,
-      title: "Show Time",
-      description: "Læn dig tilbage og nyd det spektakulære droneshow"
-    }
-  ];
-
   return (
     <>
       <Hero
@@ -129,8 +74,46 @@ export default function Home() {
         />
       </div>
       
-      <Stats title="Moonrise i tal" items={statsItems} />
-      <Process title="Sådan arbejder vi" items={processItems} />
+      <Stats 
+        title="Moonrise i tal" 
+        items={[
+          { title: "Flere deltagere", value: 65, suffix: "%", description: "Stigning i begivenhedsdeltagelse" },
+          { title: "Støj reduktion", value: 90, suffix: "%", description: "Sammenlignet med traditionelt fyrværkeri" },
+          { title: "Mindre CO₂-udledning", value: 60, suffix: "%", description: "Reduktion af CO2-fodaftryk" },
+          { title: "Mindre affald", value: 500, suffix: "kg", description: "I forhold til mellemstore fyrværkeri shows" }
+        ]} 
+      />
+
+      <Process 
+        title="Sådan arbejder vi" 
+        items={[
+          {
+            icon: FaMapMarkerAlt,
+            title: "Site Authorization & Assessment",
+            description: "Vi sikrer de nødvendige tilladelser og vurderer lokationen for sikkerhed"
+          },
+          {
+            icon: FaComments,
+            title: "Story Board Consultation",
+            description: "Vi diskuterer din vision og eventets krav med vores ekspertteam"
+          },
+          {
+            icon: FaPencilRuler,
+            title: "Design & Planning",
+            description: "Sammen skaber vi et skræddersyet droneshow tilpasset dit events tema"
+          },
+          {
+            icon: FaClipboardCheck,
+            title: "Pre-Flight Run-Through",
+            description: "Vi gennemfører en grundig generalprøve for at sikre alt kører perfekt"
+          },
+          {
+            icon: FaPlay,
+            title: "Show Time",
+            description: "Læn dig tilbage og nyd det spektakulære droneshow"
+          }
+        ]} 
+      />
       
       <div className="container mx-auto px-4 md:px-8">
         <div className="max-w-5xl mx-auto text-center">
