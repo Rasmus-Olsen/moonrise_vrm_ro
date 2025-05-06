@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import TranslatedText from "@/components/translatedText/TranslatedText";
 
@@ -10,66 +9,26 @@ const ProcessItem = ({ icon: Icon, title, description, index, totalItems }) => {
     triggerOnce: false,
   });
 
-  const iconVariants = {
-    inactive: {
-      scale: 0.8,
-      opacity: 0.5,
-    },
-    active: {
-      scale: 1,
-      opacity: 1,
-      transition: { duration: 0.3 },
-    },
-  };
-
-  const contentVariants = {
-    hidden: {
-      opacity: 0,
-      x: 20,
-    },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.5,
-        delay: 0.2,
-      },
-    },
-  };
-
   return (
     <div ref={ref} className="relative flex items-center mb-16 last:mb-0">
       {index < totalItems - 1 && (
         <div className="absolute top-[30px] left-[30px] w-0.5 h-[calc(100%+4rem)] border-l-2 border-dashed border-gray-600 -z-10" />
       )}
 
-      <motion.div
-        className="flex items-start relative z-10"
-        animate={inView ? "active" : "inactive"}
-      >
-        <motion.div
-          variants={iconVariants}
-          className="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center flex-shrink-0"
-        >
+      <div className="flex items-start relative z-10">
+        <div className={`w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ${inView ? 'opacity-100 scale-100' : 'opacity-50 scale-90'}`}>
           <Icon className="w-6 h-6 text-blue-500" />
-        </motion.div>
+        </div>
 
-        {inView && (
-          <motion.div
-            variants={contentVariants}
-            initial="hidden"
-            animate="visible"
-            className="ml-6"
-          >
-            <h3 className="text-lg font-semibold mb-2">
-              <TranslatedText>{title}</TranslatedText>
-            </h3>
-            <p className="text-sm text-gray-400">
-              <TranslatedText>{description}</TranslatedText>
-            </p>
-          </motion.div>
-        )}
-      </motion.div>
+        <div className={`ml-6 transition-all duration-300 ${inView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'}`}>
+          <h3 className="text-lg font-semibold mb-2">
+            <TranslatedText>{title}</TranslatedText>
+          </h3>
+          <p className="text-sm text-gray-400">
+            <TranslatedText>{description}</TranslatedText>
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
