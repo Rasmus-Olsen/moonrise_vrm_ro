@@ -57,7 +57,7 @@ export default function Navigation() {
           className={`
             absolute left-0 right-0 w-full bg-[var(--background)]
             transition-all duration-300 ease-in-out md:hidden
-            ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}
+            ${isOpen ? "opacity-100 visible" : "opacity-0 invisible"}
           `}
         >
           <div className="flex flex-col items-center space-y-6 py-4 pb-8">

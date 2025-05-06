@@ -166,7 +166,9 @@ const PriceCalculator = () => {
                 className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors disabled:bg-blue-400"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? "Sender..." : "Send tilbud"}
+                <TranslatedText>
+                  {isSubmitting ? "Sender..." : "Send tilbud"}
+                </TranslatedText>
               </button>
 
               {/* Vis status besked */}
