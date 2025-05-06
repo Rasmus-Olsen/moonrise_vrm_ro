@@ -8,30 +8,72 @@ const PriceCalculator = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    price: 125000
+    price: 125000,
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState("");
   const [droneCount, setDroneCount] = useState(50);
+  const FIXED_COST = 10000;
 
-  // Beregn antal droner baseret på pris
+  // Opdater droneCount når prisen ændres
   useEffect(() => {
     const price = formData.price;
-    if (price <= 125000) setDroneCount(50);
-    else if (price <= 200000) setDroneCount(100);
-    else if (price <= 300000) setDroneCount(150);
-    else if (price <= 400000) setDroneCount(200);
+    if (price <= 200000) setDroneCount(50);
+    else if (price <= 275000) setDroneCount(100);
+    else if (price <= 350000) setDroneCount(150);
+    else if (price <= 425000) setDroneCount(200);
     else setDroneCount(250);
   }, [formData.price]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Her kan vi sende data til backend
-    console.log("Form submitted:", formData);
+  const handlePriceChange = (newPrice) => {
+    setFormData((prev) => ({ ...prev, price: newPrice }));
   };
 
   const formatPrice = (price) => {
-    const formattedNumber = new Intl.NumberFormat("da-DK").format(price >= 500000 ? 500000 : price);
-    return price >= 500000 ? `${formattedNumber} kr. +` : `${formattedNumber} kr.`;
+    const formattedNumber = new Intl.NumberFormat("da-DK").format(
+      price >= 500000 ? 500000 : price
+    );
+    return price >= 500000
+      ? `${formattedNumber} kr. +`
+      : `${formattedNumber} kr.`;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus("");
+
+    try {
+      const response = await fetch("/api/send-quote", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          droneCount,
+          fixedCost: FIXED_COST,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("error");
+      }
+
+      setFormData({
+        name: "",
+        email: "",
+        price: 125000,
+      });
+
+      setSubmitStatus("success");
+    } catch (error) {
+      console.error("Error:", error);
+      setSubmitStatus("error");
+    }
+
+    setIsSubmitting(false);
   };
 
   return (
@@ -42,8 +84,9 @@ const PriceCalculator = () => {
         </h2>
         <p className="text-center mb-12 max-w-2xl mx-auto">
           <TranslatedText>
-            Hos Moonrise kan du vælge dit budget for showet, og på baggrund af dine ønsker sender vi et
-            skræddersyet tilbud. På den måde sikrer vi, at du får den bedste løsning til netop dit arrangement.
+            Hos Moonrise kan du vælge dit budget for showet, og på baggrund af
+            dine ønsker sender vi et skræddersyet tilbud. På den måde sikrer vi,
+            at du får den bedste løsning til netop dit arrangement.
           </TranslatedText>
         </p>
 
@@ -52,7 +95,9 @@ const PriceCalculator = () => {
             <div className="relative aspect-square">
               <Image
                 src={`/assets/images/drone-${droneCount}.png`}
-                alt={<TranslatedText>{`Visualisering af ${droneCount} droner`}</TranslatedText>}
+                alt={
+                  <TranslatedText>{`Visualisering af ${droneCount} droner`}</TranslatedText>
+                }
                 fill
                 className="object-cover rounded-lg"
                 priority
@@ -67,9 +112,12 @@ const PriceCalculator = () => {
                 <input
                   type="text"
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
                   className="w-full px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:border-blue-500 focus:outline-none"
                   required
+                  disabled={isSubmitting}
                   aria-label={<TranslatedText>Indtast dit navn</TranslatedText>}
                 />
               </div>
@@ -81,10 +129,15 @@ const PriceCalculator = () => {
                 <input
                   type="email"
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                   className="w-full px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:border-blue-500 focus:outline-none"
                   required
-                  aria-label={<TranslatedText>Indtast din email</TranslatedText>}
+                  disabled={isSubmitting}
+                  aria-label={
+                    <TranslatedText>Indtast din email</TranslatedText>
+                  }
                 />
               </div>
 
@@ -98,8 +151,9 @@ const PriceCalculator = () => {
                   max="500000"
                   step="1000"
                   value={formData.price}
-                  onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
+                  onChange={(e) => handlePriceChange(Number(e.target.value))}
                   className="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer"
+                  disabled={isSubmitting}
                   aria-label={<TranslatedText>Vælg dit budget</TranslatedText>}
                 />
                 <div className="text-2xl font-bold text-center mt-4">
@@ -109,10 +163,29 @@ const PriceCalculator = () => {
 
               <button
                 type="submit"
-                className="w-full bg-blue-500 text-white py-3 px-6 rounded hover:bg-blue-600 transition-colors"
+                className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors disabled:bg-blue-400"
+                disabled={isSubmitting}
               >
-                <TranslatedText>Få tilsendt tilbud</TranslatedText>
+                {isSubmitting ? "Sender..." : "Send tilbud"}
               </button>
+
+              {/* Vis status besked */}
+              {submitStatus && (
+                <p
+                  className={`mt-4 text-center text-lg font-medium ${
+                    submitStatus === "error" ? "text-red-500" : "text-blue-400"
+                  } !text-opacity-100`}
+                  style={{
+                    color: submitStatus === "error" ? "#ef4444" : "#60a5fa",
+                  }}
+                >
+                  <TranslatedText>
+                    {submitStatus === "error"
+                      ? "Der skete en fejl - prøv igen"
+                      : "Tak! Vi har sendt tilbuddet til din mail"}
+                  </TranslatedText>
+                </p>
+              )}
             </form>
           </div>
         </div>
