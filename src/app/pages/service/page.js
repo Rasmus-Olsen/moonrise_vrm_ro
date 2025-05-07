@@ -5,7 +5,13 @@ import TranslatedText from '@/components/translatedText/TranslatedText'
 import TextImageSlider from '@/components/textImageSlider/TextImageSlider'
 import Stats from '@/components/stats/Stats'
 import Process from '@/components/process/Process'
-import { FaMapMarkerAlt, FaComments, FaPencilRuler } from 'react-icons/fa'
+import {
+  FaMapMarkerAlt,
+  FaComments,
+  FaPencilRuler,
+  FaClipboardCheck,
+  FaPlay
+} from 'react-icons/fa'
 
 export default function Service () {
   return (
@@ -92,10 +98,40 @@ Vores erfaring med tekniske produktioner gennem SimpleCreations, kombineret med 
             icon: FaPencilRuler,
             title: 'Design & Planning',
             description:
-              'Sammen skaber vi et skræddersyet droneshow tilpasset di'
+              'Sammen skaber vi et skræddersyet droneshow tilpasset dit events tema'
+          },
+          {
+            icon: FaClipboardCheck,
+            title: 'Pre-Flight Run-Through',
+            description:
+              'Vi gennemfører en grundig generalprøve for at sikre alt kører perfekt'
+          },
+          {
+            icon: FaPlay,
+            title: 'Show Time',
+            description: 'Læn dig tilbage og nyd det spektakulære droneshow'
           }
         ]}
       />
+      <div className='container mx-auto px-4 md:px-8 py-16 space-y-16'>
+        <TextImageSlider
+          title='Første godkendte droneshow-udbyder i Danmark'
+          text1='Moonrise er stolte af at være de første i Danmark, der har opnået officiel godkendelse til at afholde professionelle droneshows.
+At få tilladelse til at gennemføre lysdroneshows kræver, at man lever op til strenge krav om sikkerhed, teknologi og koordinering, hvilket understreger vores seriøsitet og tekniske ekspertise.'
+          text2='Denne godkendelse betyder, at vi kan tilbyde unikke visuelle oplevelser, som er fuldt lovlige og gennemføres med størst muligt hensyn til både publikum, omgivelser og myndighedernes regler.
+Vores erfaring med tekniske produktioner gennem SimpleCreations, kombineret med en dyb forståelse for sikkerhed og avanceret dronestyring, gør os i stand til at levere spektakulære shows, der både imponerer og skaber tryghed.'
+          text3='Hos Moonrise arbejder vi hele tiden på at udvikle vores shows og løfte standarden for, hvad et droneshow kan være i Danmark – både kreativt, teknisk og miljømæssigt.'
+          text4=''
+          images={[
+            '/assets/images/testimage.jpg',
+            '/assets/images/testimage.jpg',
+            '/assets/images/testimage.jpg',
+            '/assets/images/testimage.jpg',
+            '/assets/images/testimage.jpg'
+          ]}
+          sliderPosition='right'
+        />
+      </div>
     </>
   )
 }
