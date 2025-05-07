@@ -1,9 +1,10 @@
 'use client'
 
 import { useState, useEffect } from 'react';
-import TextImageSlider from "@/components/textImageSlider/TextImageSlider";
-import Hero from "@/components/hero/Hero";
-import Trustpilot from "@/components/trustpilot/Trustpilot";
+import TextImageSlider from '@/components/textImageSlider/TextImageSlider';
+import Hero from '@/components/hero/Hero';
+import Trustpilot from '@/components/trustpilot/Trustpilot';
+import Newsletter from '@/components/newsletter/Newsletter';
 import { getReviews } from '@/lib/supabase';
 
 export default function Contact() {
@@ -27,11 +28,6 @@ export default function Contact() {
     fetchReviews();
   }, []);
 
-import TextImageSlider from '@/components/textImageSlider/TextImageSlider'
-import Hero from '@/components/hero/Hero'
-import Newsletter from '@/components/newsletter/Newsletter'
-
-export default function Contact () {
   return (
     <>
       <Hero
@@ -41,7 +37,6 @@ export default function Contact () {
         height='h-[40vh]'
       />
 
-      <div className="container mx-auto px-4 md:px-8 py-16 space-y-16">
       <div className='container mx-auto px-4 md:px-8 py-16 space-y-16'>
         <TextImageSlider
           title='Om Moonrise'
