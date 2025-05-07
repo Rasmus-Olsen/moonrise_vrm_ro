@@ -1,9 +1,32 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import TextImageSlider from "@/components/textImageSlider/TextImageSlider";
 import Hero from "@/components/hero/Hero";
+import Trustpilot from "@/components/trustpilot/Trustpilot";
+import { getReviews } from '@/lib/supabase';
 
 export default function Contact() {
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchReviews() {
+      try {
+        const data = await getReviews();
+        setReviews(data);
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+        setError('Kunne ikke hente anmeldelser');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchReviews();
+  }, []);
+
   return (
     <>
       <Hero
@@ -12,7 +35,7 @@ export default function Contact() {
         overlayOpacity={0.5}
         height="h-[40vh]"
       />
-      
+
       <div className="container mx-auto px-4 md:px-8 py-16 space-y-16">
         <TextImageSlider
           title="Om Moonrise"
@@ -37,6 +60,18 @@ export default function Contact() {
             "/assets/images/testimage2.png"
           ]}
         />
+        
+        {loading ? (
+          <div className="text-center">
+            <p className="text-gray-600">Indlæser anmeldelser...</p>
+          </div>
+        ) : error ? (
+          <div className="text-center">
+            <p className="text-red-500">{error}</p>
+          </div>
+        ) : (
+          <Trustpilot reviews={reviews} />
+        )}
       </div>
     </>
   );
