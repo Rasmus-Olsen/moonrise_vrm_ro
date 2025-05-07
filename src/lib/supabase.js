@@ -28,3 +28,27 @@ export async function getShows() {
     return [];
   }
 }
+
+export async function getReviews() {
+  try {
+    console.log('Fetching from URL:', `${url}/rest/v1/reviews`);
+    console.log('Using headers:', headers);
+    
+    const response = await fetch(`${url}/rest/v1/reviews?select=*&order=stars.asc`, {
+      method: 'GET',
+      headers: headers
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log('Received data:', data);
+    return data;
+  } catch (error) {
+    console.error('Error fetching reviews:', error);
+    return [];
+  }
+}
+
