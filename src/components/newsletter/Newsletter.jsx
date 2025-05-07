@@ -1,71 +1,119 @@
-'use client'
-import React, { useState } from 'react';
-import Image from 'next/image';
+"use client";
+import React, { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import TranslatedText from "@/components/translatedText/TranslatedText";
+import { FaPhone, FaEnvelope } from "react-icons/fa";
 
 const Newsletter = () => {
-    const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Her kan du tilføje logik til at håndtere nyhedsbrev tilmelding
-        console.log('Tilmeldt email:', email);
-        setEmail('');
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Tilmeldt email:", email);
+    setEmail("");
+  };
 
-    return (
-        <div className="flex flex-col md:flex-row gap-8 p-8 bg-gray-900 text-white max-w-7xl mx-auto">
-            <div className="flex-1">
-                <Image
-                    src="/map.png"
-                    alt="Moonrise lokation"
-                    width={500}
-                    height={300}
-                    className="w-full h-auto rounded-lg"
+  return (
+    <div className="w-full">
+      <div className="container mx-auto px-4 md:px-8 py-24">
+        <div className="flex flex-col md:flex-row gap-12">
+          {/* Kort sektion */}
+          <div className="flex-1">
+            <div className="relative h-[300px] w-full grayscale">
+              <Image
+                src="/assets/images/iframe.png"
+                alt="Moonrise location"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
+
+          {/* Kontakt og nyhedsbrev sektion */}
+          <div className="flex-1 flex flex-col justify-between">
+            <div className="space-y-4">
+              <div className="space-y-1">
+                <p className="text-white"><TranslatedText>Moonrise Aps</TranslatedText></p>
+                <p className="text-white"><TranslatedText>Jernholmen 2 2650</TranslatedText></p>
+                <p className="text-white"><TranslatedText>Hvidovre Danmark</TranslatedText></p>
+              </div>
+
+              <div className="space-y-2">
+                <a href="tel:+4512345678" className="text-white flex items-center gap-2 hover:text-gray-300 transition-colors">
+                  <FaPhone className="text-[#CAE7EC]" />
+                  +45 12 34 56 78
+                </a>
+                <a href="mailto:hello@moonrise.dk" className="text-white flex items-center gap-2 hover:text-gray-300 transition-colors">
+                  <FaEnvelope className="text-[#CAE7EC]" />
+                  hello@moonrise.dk
+                </a>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <p className="text-white"><TranslatedText>Tilmeld dig nyhedsbrevet</TranslatedText></p>
+              <form onSubmit={handleSubmit} className="flex items-stretch gap-2">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Email"
+                  required
+                  className="flex-1 bg-white rounded-md px-4 py-2 text-gray-900 placeholder:text-gray-500"
                 />
+                <button
+                  type="submit"
+                  className="bg-[#CAE7EC] text-gray-900 px-4 py-2 rounded-md hover:bg-[#B8D8DE] transition-colors whitespace-nowrap"
+                >
+                  <TranslatedText>Tilmeld mig!</TranslatedText>
+                </button>
+              </form>
             </div>
-            <div className="flex-1 flex flex-col gap-4">
-                <h2 className="text-2xl font-bold m-0">Moonrise Aps</h2>
-                <p className="m-0">Jernholmen 2 2650</p>
-                <p className="m-0">Hvidovre Danmark</p>
-                <p className="m-0">
-                    <a href="tel:+4512345678" className="text-white hover:underline">+45 12 34 56 78</a>
-                </p>
-                <p className="m-0">
-                    <a href="mailto:hello@moonrise.dk" className="text-white hover:underline">hello@moonrise.dk</a>
-                </p>
-                <div className="mt-4">
-                    <h3 className="text-xl font-semibold mb-4">Tilmeld dig nyhedsbrevet</h3>
-                    <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-2">
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Din email"
-                            required
-                            className="flex-1 p-2 rounded-md border-none bg-white text-gray-900"
-                        />
-                        <button 
-                            type="submit"
-                            className="bg-cyan-600 text-white px-4 py-2 rounded-md hover:bg-cyan-700 transition-colors md:w-auto w-full"
-                        >
-                            Tilmeld mig!
-                        </button>
-                    </form>
-                </div>
-                <div className="flex gap-4 mt-4">
-                    <a href="#" aria-label="Instagram" className="opacity-80 hover:opacity-100 transition-opacity">
-                        <Image src="/instagram-icon.png" alt="Instagram" width={30} height={30} />
-                    </a>
-                    <a href="#" aria-label="Facebook" className="opacity-80 hover:opacity-100 transition-opacity">
-                        <Image src="/facebook-icon.png" alt="Facebook" width={30} height={30} />
-                    </a>
-                    <a href="#" aria-label="LinkedIn" className="opacity-80 hover:opacity-100 transition-opacity">
-                        <Image src="/linkedin-icon.png" alt="LinkedIn" width={30} height={30} />
-                    </a>
-                </div>
+
+            <div className="flex gap-4">
+              <Link
+                href="https://instagram.com"
+                target="_blank"
+                className="hover:opacity-80 transition-opacity"
+              >
+                <Image
+                  src="/assets/images/insta.png"
+                  alt="Instagram"
+                  width={32}
+                  height={32}
+                />
+              </Link>
+              <Link
+                href="https://facebook.com"
+                target="_blank"
+                className="hover:opacity-80 transition-opacity"
+              >
+                <Image
+                  src="/assets/images/facebook.png"
+                  alt="Facebook"
+                  width={32}
+                  height={32}
+                />
+              </Link>
+              <Link
+                href="https://linkedin.com"
+                target="_blank"
+                className="hover:opacity-80 transition-opacity"
+              >
+                <Image
+                  src="/assets/images/linkedIn.png"
+                  alt="LinkedIn"
+                  width={32}
+                  height={32}
+                />
+              </Link>
             </div>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Newsletter;
