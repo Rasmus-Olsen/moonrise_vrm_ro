@@ -1,13 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  --background: #141a24;
-  --foreground: #ffffff;
+  /* Colors */
+  --background: #141A24;
+  --navy: #062A68;
+  --blue: #175E9C;
+  --purple: #760AF4;
+  --white: #FEFCED;
 
   /* Text styles */
-  --text-color: #ffffff;
+  --text-color: var(--white);
   --text-size-large: 2.25rem;
   --text-size-normal: 1.125rem;
+
+  /* Fonts */
+  --font-primary: 'Outfit', sans-serif;
+  --font-secondary: 'Roboto', sans-serif;
 }
 
 h1 {
