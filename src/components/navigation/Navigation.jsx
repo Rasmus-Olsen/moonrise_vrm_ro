@@ -12,10 +12,10 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
 
   const routes = [
-    { path: "/pages/shows", label: "Shows" },
-    { path: "/pages/service", label: "Service" },
     { path: "/pages/prices", label: "Priser" },
+    { path: "/pages/service", label: "Service" },
     { path: "/pages/contact", label: "Kontakt" },
+    { path: "/pages/shows", label: "Shows" },
   ];
 
   return (
@@ -27,7 +27,7 @@ export default function Navigation() {
             href="/"
             className="text-2xl font-bold hover:opacity-80 transition-opacity"
           >
-            Moonrise
+            <TranslatedText>Moonrise</TranslatedText>
           </Link>
 
           {/* Burger Menu Button - Only visible on mobile */}
