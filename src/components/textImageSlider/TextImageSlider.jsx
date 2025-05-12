@@ -20,7 +20,7 @@ const TextImageSlider = ({
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const textContent = (
-    <div className="flex flex-col space-y-4 justify-center h-full">
+    <div className="flex flex-col space-y-4 justify-center h-[400px] md:min-h-[400px] md:h-auto">
       <h2 className="text-heading">
         <TranslatedText>{title}</TranslatedText>
       </h2>
@@ -62,7 +62,7 @@ const TextImageSlider = ({
             priority={true}
           />
           {overlayOpacity > 0 && (
-            <div 
+            <div
               className="absolute inset-0 bg-black rounded-lg"
               style={{ opacity: overlayOpacity }}
             />
@@ -107,22 +107,22 @@ const TextImageSlider = ({
   const visibleImages = getVisibleImages();
 
   const sliderContent = (
-    <div className="w-full md:w-1/2 relative h-full min-h-[400px] order-2 md:order-none">
-      <div className="absolute inset-0 overflow-hidden">
+    <div className="w-full md:w-1/2 relative order-2 md:order-none h-[400px] md:h-auto flex items-center">
+      <div className="w-full h-full relative overflow-hidden">
         <div
-          className="flex h-full gap-4 transition-transform duration-500 ease-in-out"
+          className="flex gap-4 transition-transform duration-500 ease-in-out absolute inset-0"
           style={{
             transform: `translateX(calc(-${416}px + 50% - 208px))`,
-            willChange: "transform",
+            willChange: "transform"
           }}
         >
           {visibleImages.map((src, index) => (
             <div
               key={`${currentIndex}-${index}`}
-              className="flex-shrink-0"
+              className="flex-shrink-0 h-full"
               style={{ width: "400px" }}
             >
-              <div className="relative h-full">
+              <div className="relative w-full h-full">
                 <Image
                   src={src}
                   alt={index === 1 ? title : `Slide`}
@@ -132,7 +132,7 @@ const TextImageSlider = ({
                   priority={true}
                 />
                 {overlayOpacity > 0 && (
-                  <div 
+                  <div
                     className="absolute inset-0 bg-black rounded-lg"
                     style={{ opacity: overlayOpacity }}
                   />

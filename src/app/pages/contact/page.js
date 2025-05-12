@@ -45,22 +45,10 @@ export default function Contact() {
           text3='Uanset om du ønsker et færdigudviklet show eller en specialdesignet løsning, arbejder vi tæt sammen med dig for at skabe en oplevelse, der passer perfekt til dit arrangement - og som dine gæster aldrig glemmer.'
           text4='Vil du vide mere, se tidligere projekter eller høre om mulighederne? Så er du altid velkommen til at kontakte os – vi står klar til at hjælpe.'
           images={['/assets/images/testimage.jpg']}
-          sliderPosition='left'
+          sliderPosition='right'
         />
 
-        <TextImageSlider
-          title='Vores Projekter'
-          text1='Se nogle af vores seneste drone shows og projekter. Hver show er skræddersyet til kundens ønsker og behov.'
-          text2='Vi kan skabe alt fra simple mønstre til komplekse animationer og fortællinger på himlen.'
-          text3='Kontakt os for at høre mere om mulighederne for dit næste event.'
-          sliderPosition='right'
-          images={[
-            '/assets/images/testimage.jpg',
-            '/assets/images/testimage2.png',
-            '/assets/images/testimage.jpg',
-            '/assets/images/testimage2.png'
-          ]}
-        />
+        <Newsletter />
         
         {loading ? (
           <div className="text-center">
@@ -75,7 +63,7 @@ export default function Contact() {
         )}
       </div>
 
-      <Newsletter />
+      
     </>
   )
 }

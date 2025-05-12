@@ -39,11 +39,9 @@ Vores erfaring med tekniske produktioner gennem SimpleCreations, kombineret med 
         <TextImageSlider
           title='Vælg mellem Prelavet eller Custom Droneshow'
           text1='Hos Moonrise tilbyder vi to typer droneshows, så vi kan matche både jeres ønsker og budget.'
-          text2='Prelavet Show:'
-          text3='Vores prelavede shows er færdigudviklede opsætninger, hvor koreografi og lysdesign allerede er planlagt. Disse shows kan tilpasses med enkelte elementer som farver eller logoer, men kræver minimal udviklingstid og er derfor en mere prisvenlig løsning – perfekt, hvis I ønsker en hurtig og effektiv booking.'
-          text4='Custom Show:'
-          text5='Ønsker I en helt unik oplevelse, skaber vi et custom droneshow, designet specifikt til jeres arrangement. Her udvikler vi figurer, animationer og storytelling fra bunden baseret på jeres ideer, brand eller tema. Et custom show giver fuld kreativ frihed, men kræver mere planlægning, udvikling og godkendelse – og derfor også en højere pris.'
-          text6='Uanset hvad I vælger, arbejder vi tæt sammen med jer for at sikre, at showet skaber præcis den oplevelse, I ønsker.'
+          text2='Prelavet Show: Vores prelavede shows er færdigudviklede opsætninger, hvor koreografi og lysdesign allerede er planlagt. Disse shows kan tilpasses med enkelte elementer som farver eller logoer, men kræver minimal udviklingstid og er derfor en mere prisvenlig løsning – perfekt, hvis I ønsker en hurtig og effektiv booking.'
+          text3='Custom Show: Ønsker I en helt unik oplevelse, skaber vi et custom droneshow, designet specifikt til jeres arrangement. Her udvikler vi figurer, animationer og storytelling fra bunden baseret på jeres ideer, brand eller tema. Et custom show giver fuld kreativ frihed, men kræver mere planlægning, udvikling og godkendelse – og derfor også en højere pris.'
+          text4='Uanset hvad I vælger, arbejder vi tæt sammen med jer for at sikre, at showet skaber præcis den oplevelse, I ønsker.'
           sliderPosition='left'
           images={['/assets/images/testimage.jpg']}
         />
