@@ -3,12 +3,14 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import TranslatedText from "@/components/translatedText/TranslatedText";
+import { savePrice } from '@/lib/supabase';
 
 const PriceCalculator = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     price: 125000,
+    newsletter: false,
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -45,6 +47,7 @@ const PriceCalculator = () => {
     setSubmitStatus("");
 
     try {
+      // Send PDF via API
       const response = await fetch("/api/send-quote", {
         method: "POST",
         headers: {
@@ -58,13 +61,24 @@ const PriceCalculator = () => {
       });
 
       if (!response.ok) {
-        throw new Error("error");
+        const error = await response.json();
+        throw new Error(error.details || "error sending quote");
       }
 
+      // Gem i Supabase
+      await savePrice(
+        formData.name,
+        formData.email,
+        formData.price.toString(),
+        formData.newsletter
+      );
+
+      // Nulstil form
       setFormData({
         name: "",
         email: "",
         price: 125000,
+        newsletter: false,
       });
 
       setSubmitStatus("success");
@@ -159,6 +173,23 @@ const PriceCalculator = () => {
                 <div className="text-2xl font-bold text-center mt-4">
                   {formatPrice(formData.price)}
                 </div>
+              </div>
+
+              <div className="mb-4">
+                <label className="flex items-center space-x-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={formData.newsletter}
+                    onChange={(e) =>
+                      setFormData({ ...formData, newsletter: e.target.checked })
+                    }
+                    className="form-checkbox h-5 w-5 text-blue-600 rounded border-gray-700 bg-gray-800 focus:ring-blue-500"
+                    disabled={isSubmitting}
+                  />
+                  <span>
+                    <TranslatedText>Ja tak til nyhedsbrev</TranslatedText>
+                  </span>
+                </label>
               </div>
 
               <button

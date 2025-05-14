@@ -5,10 +5,10 @@ import { generateQuotePDF } from '@/components/pdf/QuotePDF';
 export async function POST(request) {
   try {
     const data = await request.json();
-    console.log('Modtaget data:', data);
+    // console.log('Modtaget data:', data);
     
     const pdfBase64 = generateQuotePDF(data);
-    console.log('PDF genereret');
+    // console.log('PDF genereret');
     
     // Fjern data:application/pdf;base64, fra starten
     const pdfData = pdfBase64.split(',')[1];
