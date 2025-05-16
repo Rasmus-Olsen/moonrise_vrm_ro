@@ -48,6 +48,49 @@ export async function getReviews() {
   }
 }
 
+export async function saveNewsletter(email) {
+  try {
+    // Tjek om email allerede findes
+    const checkResponse = await fetch(
+      `${url}/rest/v1/newsletter?email=eq.${encodeURIComponent(email)}`,
+      {
+        method: 'GET',
+        headers: headers
+      }
+    );
+
+    if (!checkResponse.ok) {
+      throw new Error('Fejl ved tjek af email');
+    }
+
+    const existingEmails = await checkResponse.json();
+    
+    if (existingEmails.length > 0) {
+      return { status: 'exists' };
+    }
+
+    // Gem ny email
+    const response = await fetch(`${url}/rest/v1/newsletter`, {
+      method: 'POST',
+      headers: {
+        ...headers,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ email })
+    });
+
+    if (!response.ok) {
+      throw new Error('Fejl ved tilmelding');
+    }
+
+    return { status: 'success' };
+  } catch (error) {
+    console.error('Error saving newsletter:', error);
+    return { status: 'error', error };
+  }
+}
+
 export async function savePrice(name, email, price, newsletter = false) {
   try {
     // Gem pris data

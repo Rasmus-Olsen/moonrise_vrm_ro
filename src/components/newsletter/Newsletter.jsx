@@ -4,14 +4,26 @@ import Image from "next/image";
 import Link from "next/link";
 import TranslatedText from "@/components/translatedText/TranslatedText";
 import { FaPhone, FaEnvelope } from "react-icons/fa";
+import { saveNewsletter } from "@/lib/supabase";
 
 const Newsletter = () => {
   const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Tilmeldt email:", email);
-    setEmail("");
+    setIsSubmitting(true);
+    setStatus("");
+
+    const result = await saveNewsletter(email);
+    setStatus(result.status);
+
+    if (result.status === 'success') {
+      setEmail("");
+    }
+
+    setIsSubmitting(false);
   };
 
   return (
@@ -64,7 +76,8 @@ const Newsletter = () => {
                 />
                 <button
                   type="submit"
-                  className="bg-[#CAE7EC] text-gray-900 px-4 py-2 rounded-md hover:bg-[#B8D8DE] transition-colors whitespace-nowrap"
+                  className="bg-[#CAE7EC] text-gray-900 px-4 py-2 rounded-md hover:bg-[#B8D8DE] transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={isSubmitting}
                 >
                   <TranslatedText>Tilmeld mig!</TranslatedText>
                 </button>
