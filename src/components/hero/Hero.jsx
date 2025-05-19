@@ -1,8 +1,9 @@
 "use client";
 
 import TranslatedText from "@/components/translatedText/TranslatedText";
+import AnimatedCharacters from "../animatedCharacters/animatedCharacters";
 
-export default function Hero({ 
+export default function Hero({
   backgroundSrc,
   title,
   text,
@@ -27,14 +28,14 @@ export default function Hero({
           src={backgroundSrc}
         />
       ) : (
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url(${backgroundSrc})` }}
         />
       )}
 
       {/* Mørk overlay for bedre læsbarhed */}
-      <div 
+      <div
         className="absolute inset-0 bg-black"
         style={{ opacity: overlayOpacity }}
       />
@@ -42,8 +43,13 @@ export default function Hero({
       {/* Indhold container */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4 md:px-8">
         {/* Title - kun margin-bottom hvis der er mere indhold */}
-        <h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold ${(text || (buttonText && buttonLink)) ? 'mb-4' : ''}`}>
-          <TranslatedText>{title}</TranslatedText>
+        <h1
+          style={{ fontSize: "4rem" }}
+          className={`font-bold ${
+            text || (buttonText && buttonLink) ? "mb-4" : ""
+          }`}
+        >
+          <AnimatedCharacters text={title} />
         </h1>
 
         {/* Text */}
