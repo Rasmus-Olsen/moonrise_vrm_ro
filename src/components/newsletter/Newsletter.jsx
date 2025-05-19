@@ -18,11 +18,7 @@ const Newsletter = () => {
 
     const result = await saveNewsletter(email);
     setStatus(result.status);
-
-    if (result.status === 'success') {
-      setEmail("");
-    }
-
+    setEmail(""); // Altid nulstil email feltet
     setIsSubmitting(false);
   };
 
