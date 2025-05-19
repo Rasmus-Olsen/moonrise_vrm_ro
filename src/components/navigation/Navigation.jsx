@@ -15,11 +15,14 @@ export default function Navigation() {
     { path: "/pages/prices", label: "Priser" },
     { path: "/pages/service", label: "Service" },
     { path: "/pages/contact", label: "Kontakt" },
-    { path: "/pages/shows", label: "Shows" },
+    { path: "/pages/shows", label: "Shows" }
   ];
 
   return (
-    <nav className="relative z-50">
+    <nav
+      id="main-nav"
+      className="fixed top-0 left-0 w-full z-50 opacity-0 -translate-y-10 bg-[var(--background)]"
+    >
       <div className="container mx-auto">
         {/* Desktop and Mobile Header */}
         <div className="flex justify-between items-center p-4">

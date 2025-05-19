@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import TranslatedText from "../translatedText/TranslatedText";
+import Button from "../button/Button";
 
 const TextImageSlider = ({
   title,
@@ -16,6 +17,7 @@ const TextImageSlider = ({
   buttonText,
   buttonLink,
   overlayOpacity = 0,
+  buttonStyle = "btn-one",
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -38,11 +40,12 @@ const TextImageSlider = ({
           <TranslatedText>{text4}</TranslatedText>
         </p>
       )}
+      
       {buttonText && buttonLink && (
-        <Link href={buttonLink}>
-          <button className="mt-6 btn-primary">
+        <Link href={buttonLink} className="mt-6 inline-block">
+          <Button buttonStyle={buttonStyle}>
             <TranslatedText>{buttonText}</TranslatedText>
-          </button>
+          </Button>
         </Link>
       )}
     </div>
