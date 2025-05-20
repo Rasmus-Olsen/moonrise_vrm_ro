@@ -1,11 +1,20 @@
 'use client'
 
+import dynamic from 'next/dynamic';
 import { useState, useEffect } from 'react';
-import TextImageSlider from '@/components/textImageSlider/TextImageSlider';
 import Hero from '@/components/hero/Hero';
-import Trustpilot from '@/components/trustpilot/Trustpilot';
-import Newsletter from '@/components/newsletter/Newsletter';
 import { getReviews } from '@/lib/supabase';
+
+// Lazy load components
+const TextImageSlider = dynamic(() => import('@/components/textImageSlider/TextImageSlider'), {
+  loading: () => <div className="animate-pulse bg-gray-700 h-[400px] rounded-lg"></div>
+});
+const Trustpilot = dynamic(() => import('@/components/trustpilot/Trustpilot'), {
+  loading: () => <div className="animate-pulse bg-gray-700 h-[300px] rounded-lg"></div>
+});
+const Newsletter = dynamic(() => import('@/components/newsletter/Newsletter'), {
+  loading: () => <div className="animate-pulse bg-gray-700 h-[200px] rounded-lg"></div>
+});
 
 export default function Contact() {
   const [reviews, setReviews] = useState([]);

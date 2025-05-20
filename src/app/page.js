@@ -1,10 +1,11 @@
 "use client";
 
+import dynamic from 'next/dynamic';
 import Hero from "@/components/hero/Hero";
-import TextImageSlider from "@/components/textImageSlider/TextImageSlider";
-import TranslatedText from "@/components/translatedText/TranslatedText";
-import Stats from "@/components/stats/Stats";
-import Process from "@/components/process/Process";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Link from "next/link";
 import {
   FaMapMarkerAlt,
   FaComments,
@@ -12,11 +13,19 @@ import {
   FaClipboardCheck,
   FaPlay
 } from "react-icons/fa";
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Button from "@/components/button/Button";
-import Link from "next/link";
+
+// Lazy load components
+const TextImageSlider = dynamic(() => import("@/components/textImageSlider/TextImageSlider"), {
+  loading: () => <div className="animate-pulse bg-gray-700 h-[400px] rounded-lg"></div>
+});
+const TranslatedText = dynamic(() => import("@/components/translatedText/TranslatedText"));
+const Stats = dynamic(() => import("@/components/stats/Stats"), {
+  loading: () => <div className="animate-pulse bg-gray-700 h-[300px] rounded-lg"></div>
+});
+const Process = dynamic(() => import("@/components/process/Process"), {
+  loading: () => <div className="animate-pulse bg-gray-700 h-[400px] rounded-lg"></div>
+});
+const Button = dynamic(() => import("@/components/button/Button"));
 
 gsap.registerPlugin(ScrollTrigger);
 
