@@ -13,12 +13,21 @@ export async function POST(request) {
     // Fjern data:application/pdf;base64, fra starten
     const pdfData = pdfBase64.split(',')[1];
 
+    // Tjek om vi har de nødvendige miljøvariabler
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      console.error('Manglende email credentials i miljøvariabler');
+      return NextResponse.json({ 
+        error: 'Server configuration error',
+        details: 'Missing email credentials'
+      }, { status: 500 });
+    }
+
     // Opret email transporter med Gmail
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "rasmusolsen071197@gmail.com",
-        pass: "niwq qpzl gmtl iosm"
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
       }
     });
 
@@ -53,16 +62,25 @@ export async function POST(request) {
     });
 
     console.log('Email sendt!');
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ 
+      success: true,
+      message: 'Email sent successfully'
+    });
   } catch (error) {
+    // Log den detaljerede fejl for debugging
     console.error('Detaljeret fejl:', {
       name: error.name,
       message: error.message,
-      stack: error.stack,
       code: error.code
     });
+
+    // Send en mere specifik fejlbesked tilbage
+    const errorMessage = error.code === 'EAUTH' ? 
+      'Email authentication failed' : 
+      'Failed to send email';
+
     return NextResponse.json({ 
-      error: 'Failed to send email',
+      error: errorMessage,
       details: error.message
     }, { status: 500 });
   }
