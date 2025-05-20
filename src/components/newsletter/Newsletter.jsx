@@ -9,7 +9,7 @@ import { saveNewsletter } from "@/lib/supabase";
 const Newsletter = () => {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
