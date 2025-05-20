@@ -92,6 +92,10 @@ export async function saveNewsletter(email) {
 
 export async function savePrice(name, email, price, newsletter = false) {
   try {
+    console.log('Attempting to save price with:', { name, email, price, newsletter });
+    console.log('Using URL:', `${url}/rest/v1/price`);
+    console.log('Using headers:', headers);
+
     // Gem pris data
     const response = await fetch(`${url}/rest/v1/price`, {
       method: 'POST',
@@ -103,8 +107,12 @@ export async function savePrice(name, email, price, newsletter = false) {
       })
     });
 
+    console.log('Price save response status:', response.status);
+
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const errorText = await response.text();
+      console.error('Error response from price save:', errorText);
+      throw new Error(`HTTP error! status: ${response.status}. Response: ${errorText}`);
     }
 
     // Hvis bruger har sagt ja til nyhedsbrev, tjek først om emailen allerede findes
