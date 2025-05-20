@@ -4,7 +4,7 @@ const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const headers = {
   'apikey': key,
   'Content-Type': 'application/json',
-  'Prefer': 'return=minimal',
+  'Prefer': 'return=minimal', 
   'Accept': 'application/json'
 };
 
@@ -14,7 +14,7 @@ export async function getShows() {
     const response = await fetch(`${url}/rest/v1/shows?select=*&order=date.asc`, {
       method: 'GET',
       headers: headers
-    });
+    }); 
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
