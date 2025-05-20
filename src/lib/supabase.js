@@ -75,11 +75,7 @@ export async function saveNewsletter(email) {
     // Gem ny email
     const response = await fetch(`${url}/rest/v1/newsletter`, {
       method: 'POST',
-      headers: {
-        ...headers,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal'
-      },
+      headers: headers,
       body: JSON.stringify({ email })
     });
 
@@ -99,11 +95,7 @@ export async function savePrice(name, email, price, newsletter = false) {
     // Gem pris data
     const response = await fetch(`${url}/rest/v1/price`, {
       method: 'POST',
-      headers: {
-        ...headers,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal'
-      },
+      headers: headers,
       body: JSON.stringify({
         name,
         email,
@@ -133,11 +125,7 @@ export async function savePrice(name, email, price, newsletter = false) {
         if (existingEmails.length === 0) {
           const newsletterResponse = await fetch(`${url}/rest/v1/newsletter`, {
             method: 'POST',
-            headers: {
-              ...headers,
-              'Content-Type': 'application/json',
-              'Prefer': 'return=minimal'
-            },
+            headers: headers,
             body: JSON.stringify({
               email
             })
