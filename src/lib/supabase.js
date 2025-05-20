@@ -3,7 +3,10 @@ const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 const headers = {
   'apikey': key,
-  'Authorization': `Bearer ${key}`
+  'Authorization': `Bearer ${key}`,
+  'Content-Type': 'application/json',
+  'Prefer': 'return=minimal',
+  'Accept': 'application/json'
 };
 
 export async function getShows() {
