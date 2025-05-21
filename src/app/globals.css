@@ -88,7 +88,7 @@ html, body {
 }
 
 a, a[href], Link {
-  color: var(--text-color);
+  color: var(--text-color); 
 }
 
 /* Override default link color for show addresses */
