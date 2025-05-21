@@ -26,18 +26,26 @@ const TextImageSlider = ({
 
   const textContent = (
     <div className="flex flex-col space-y-4 justify-center min-h-[250px] md:min-h-[400px]">
-      <h2 className="text-heading">
-        <TranslatedText>{title}</TranslatedText>
-      </h2>
-      <p className="text-body">
-        <TranslatedText>{text1}</TranslatedText>
-      </p>
-      <p className="text-body">
-        <TranslatedText>{text2}</TranslatedText>
-      </p>
-      <p className="text-body">
-        <TranslatedText>{text3}</TranslatedText>
-      </p>
+      {title && (
+        <h2 className="text-heading">
+          <TranslatedText>{title}</TranslatedText>
+        </h2>
+      )}
+      {text1 && (
+        <p className="text-body">
+          <TranslatedText>{text1}</TranslatedText>
+        </p>
+      )}
+      {text2 && (
+        <p className="text-body">
+          <TranslatedText>{text2}</TranslatedText>
+        </p>
+      )}
+      {text3 && (
+        <p className="text-body">
+          <TranslatedText>{text3}</TranslatedText>
+        </p>
+      )}
       {text4 && (
         <p className="text-body">
           <TranslatedText>{text4}</TranslatedText>
