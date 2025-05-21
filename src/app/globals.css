@@ -2,11 +2,11 @@
 
 :root {
   /* Colors */
-  --background: #141A24;
-  --navy: #062A68;
-  --blue: #175E9C;
-  --purple: #760AF4;
-  --white: #FEFCED;
+  --background: #141a24;
+  --navy: #062a68;
+  --blue: #175e9c;
+  --purple: #760af4;
+  --white: #fefced;
 
   /* Text styles */
   --text-color: var(--white);
@@ -14,8 +14,8 @@
   --text-size-normal: 1.125rem;
 
   /* Fonts */
-  --font-primary: 'Outfit', sans-serif;
-  --font-secondary: 'Roboto', sans-serif;
+  --font-primary: "Outfit", sans-serif;
+  --font-secondary: "Roboto", sans-serif;
 }
 
 h1 {
@@ -71,4 +71,18 @@ body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-y: visible;
+  position: relative;
+  height: unset;
+}
+
+html {
+  overflow-y: scroll;
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+html, body {
+  overflow-x: hidden;
+  margin: 0;
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import LanguageSwitch from "@/components/languageSwitcher/LanguageSwitch";
@@ -10,6 +10,7 @@ import BurgerMenu from "./BurgerMenu";
 export default function Navigation() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   const routes = [
     { path: "/pages/prices", label: "Priser" },
@@ -18,13 +19,23 @@ export default function Navigation() {
     { path: "/pages/shows", label: "Shows" }
   ];
 
+  useEffect(() => {
+    if (pathname !== "/") {
+      // Hvis vi ikke er på forsiden, vis navigationen direkte
+      setVisible(true);
+    }
+  }, [pathname]);
+
   return (
     <nav
       id="main-nav"
-      className="fixed top-0 left-0 w-full z-50 opacity-0 -translate-y-10 bg-[var(--background)]"
+      className={`
+        fixed top-0 left-0 w-full z-50 bg-[var(--background)]
+        transition-all duration-500 ease-out
+        ${visible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10"}
+      `}
     >
       <div className="container mx-auto">
-        {/* Desktop and Mobile Header */}
         <div className="flex justify-between items-center p-4">
           <Link
             href="/"
@@ -33,10 +44,8 @@ export default function Navigation() {
             <TranslatedText>Moonrise</TranslatedText>
           </Link>
 
-          {/* Burger Menu Button - Only visible on mobile */}
           <BurgerMenu isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
 
-          {/* Desktop Navigation - Hidden on mobile */}
           <div className="hidden md:flex items-center space-x-6">
             {routes.map((route) => (
               <Link
@@ -55,7 +64,6 @@ export default function Navigation() {
           </div>
         </div>
 
-        {/* Mobile Navigation - Absolute positioned */}
         <div
           className={`
             absolute left-0 right-0 w-full bg-[var(--background)]

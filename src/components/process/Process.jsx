@@ -1,65 +1,141 @@
 "use client";
 
-import { useInView } from "react-intersection-observer";
+import { useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TranslatedText from "@/components/translatedText/TranslatedText";
 
-const ProcessItem = ({ icon: Icon, title, description, index, totalItems }) => {
-  const { ref, inView } = useInView({
-    threshold: 0.7,
-    triggerOnce: false,
-  });
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+const Process = ({ title, items = [] }) => {
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    if (
+      typeof window === "undefined" ||
+      !sectionRef.current ||
+      !items ||
+      items.length === 0
+    )
+      return;
+
+    const cleanup = () => {
+      ScrollTrigger.getAll().forEach((st) => st.kill());
+    };
+
+    cleanup();
+
+    const timer = setTimeout(() => {
+      const panels = gsap.utils.toArray(".panel");
+      const container = document.querySelector(".process-container");
+
+      // Horizontal scroll effect without snapping
+      gsap.to(panels, {
+        xPercent: -100 * (panels.length - 1),
+        ease: "none",
+        scrollTrigger: {
+          trigger: container,
+          pin: true,
+          scrub: true,
+          anticipatePin: 1, // Hjælper med smooth pinning
+          // Her tilføjer vi halvdelen af viewportbredden til enden,
+          // så sidste panel kan slutte midt på skærmen
+          end: () => {
+            const totalWidth = container.scrollWidth;
+            const viewportWidth = window.innerWidth;
+            const scrollDistance = totalWidth - viewportWidth;
+            return "+=" + scrollDistance;
+          }
+        }
+      });
+
+      // Fade/scale animation per panel med specialbehandling for første og sidste
+      panels.forEach((panel, i) => {
+        const totalPanels = panels.length;
+        const isFirst = i === 0;
+        const isLast = i === totalPanels - 1;
+
+        let start = "center center";
+        let end = "center center";
+
+        if (isFirst) {
+          start = "left center";
+          end = "center center";
+        } else if (isLast) {
+          start = "center center";
+          end = "right center";
+        }
+
+        gsap.fromTo(
+          panel,
+          { autoAlpha: 0, scale: 0.95, y: 20 },
+          {
+            autoAlpha: 1,
+            scale: 1,
+            y: 0,
+            scrollTrigger: {
+              trigger: panel,
+              start,
+              end,
+              scrub: true
+            }
+          }
+        );
+      });
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+      cleanup();
+    };
+  }, [items]);
 
   return (
-    <div ref={ref} className="relative flex items-center mb-16 last:mb-0">
-      {index < totalItems - 1 && (
-        <div className="absolute top-[30px] left-[30px] w-0.5 h-[calc(100%+4rem)] border-l-2 border-dashed border-gray-600 -z-10" />
-      )}
-
-      <div className="flex items-start relative z-10">
-        <div className={`w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ${inView ? 'opacity-100 scale-100' : 'opacity-50 scale-90'}`}>
-          <Icon className="w-6 h-6 text-blue-500" />
-        </div>
-
-        <div className={`ml-6 transition-all duration-300 ${inView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'}`}>
-          <h3 className="text-lg font-semibold mb-2">
+    <>
+      {/* Header */}
+      <section className="flex flex-col items-center bg-black text-white pt-30 ">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold">
             <TranslatedText>{title}</TranslatedText>
-          </h3>
-          <p className="text-sm text-gray-400">
-            <TranslatedText>{description}</TranslatedText>
-          </p>
+          </h2>
         </div>
-      </div>
-    </div>
-  );
-};
+      </section>
 
-const Process = ({ title, items }) => {
-  return (
-    <div className="bg-black text-white py-16 mb-16">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col lg:flex-row items-start">
-          <div className="lg:w-1/2 mb-12 lg:mb-0 mx-auto">
-            <h2>
-              <TranslatedText>{title}</TranslatedText>
-            </h2>
-          </div>
-          <div className="lg:w-1/2">
-            <div className="relative pl-4">
-              {items.map((item, index) => (
-                <ProcessItem
-                  key={index}
-                  icon={item.icon}
-                  title={item.title}
-                  description={item.description}
-                  index={index}
-                  totalItems={items.length}
-                />
-              ))}
-            </div>
-          </div>
+      {/* Process Panels */}
+      <section
+        ref={sectionRef}
+        className="bg-pink-500 text-white overflow-hidden min-h-screen"
+      >
+        <div
+          className="process-container h-screen flex flex-nowrap"
+          style={{ width: `${items.length * 100}%` }}
+        >
+          {items.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={index}
+                className="panel w-screen h-screen flex items-center justify-center px-12"
+              >
+                <div className="max-w-2xl text-center">
+                  <div className="flex flex-col items-center gap-4 mb-6">
+                    {Icon && <Icon className="text-5xl text-white" />}
+                    <h3 className="text-4xl font-semibold">
+                      <TranslatedText>{item.title}</TranslatedText>
+                    </h3>
+                  </div>
+                  <p className="text-lg text-gray-300 leading-relaxed">
+                    <TranslatedText>{item.description}</TranslatedText>
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </div>
-      </div>
-    </div>
+      </section>
+    </>
   );
 };
 
