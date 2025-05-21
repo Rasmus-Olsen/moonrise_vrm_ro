@@ -39,7 +39,9 @@ export default function Navigation() {
         <div className="flex justify-between items-center p-4">
           <Link
             href="/"
-            className="text-2xl font-bold hover:opacity-80 transition-opacity"
+            className={`text-2xl font-bold relative group transition-colors ${
+              pathname === "/" ? "text-[var(--blue)]" : ""
+            } hover:text-[var(--navy)]`}
           >
             <TranslatedText>Moonrise</TranslatedText>
           </Link>
@@ -51,11 +53,20 @@ export default function Navigation() {
               <Link
                 key={route.path}
                 href={route.path}
-                className={`hover:opacity-80 transition-opacity ${
-                  pathname === route.path ? "opacity-100" : "opacity-80"
+                className={`relative group transition-all ${
+                  pathname === route.path ? "text-[var(--blue)]" : ""
                 }`}
               >
-                <TranslatedText>{route.label}</TranslatedText>
+                <span className="group-hover:text-[var(--blue)] transition-colors">
+                  <TranslatedText>{route.label}</TranslatedText>
+                </span>
+                <span
+                  className={`absolute -bottom-1 left-0 w-full h-[2px] bg-[var(--blue)] transform origin-left transition-transform duration-300 ${
+                    pathname === route.path
+                      ? "scale-x-100"
+                      : "scale-x-0 group-hover:scale-x-100"
+                  }`}
+                ></span>
               </Link>
             ))}
             <div className="border-l border-opacity-20 pl-6">
@@ -76,12 +87,21 @@ export default function Navigation() {
               <Link
                 key={route.path}
                 href={route.path}
-                className={`text-lg hover:opacity-80 transition-opacity ${
+                className={`text-lg relative group hover:text-[var(--purple)] transition-colors ${
                   pathname === route.path ? "opacity-100" : "opacity-80"
                 }`}
                 onClick={() => setIsOpen(false)}
               >
-                <TranslatedText>{route.label}</TranslatedText>
+                <span className="group-hover:text-[var(--purple)] transition-colors">
+                  <TranslatedText>{route.label}</TranslatedText>
+                </span>
+                <span
+                  className={`absolute -bottom-1 left-0 w-full h-[2px] bg-[var(--purple)] transform origin-left transition-transform duration-300 ${
+                    pathname === route.path
+                      ? "scale-x-100"
+                      : "scale-x-0 group-hover:scale-x-100"
+                  }`}
+                ></span>
               </Link>
             ))}
             <div className="pt-4">
