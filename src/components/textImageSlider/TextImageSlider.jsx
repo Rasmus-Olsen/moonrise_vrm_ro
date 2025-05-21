@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import TranslatedText from "../translatedText/TranslatedText";
 import Button from "../button/Button";
+import gsap from "gsap";
 
 const TextImageSlider = ({
   title,
@@ -17,9 +18,11 @@ const TextImageSlider = ({
   buttonText,
   buttonLink,
   overlayOpacity = 0,
-  buttonStyle = "btn-one",
+  buttonStyle = "btn-one"
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const sliderRef = useRef(null);
+  const isAnimating = useRef(false);
 
   const textContent = (
     <div className="flex flex-col space-y-4 justify-center min-h-[250px] md:min-h-[400px]">
@@ -40,7 +43,7 @@ const TextImageSlider = ({
           <TranslatedText>{text4}</TranslatedText>
         </p>
       )}
-      
+
       {buttonText && buttonLink && (
         <Link href={buttonLink} className="mt-6 inline-block">
           <Button buttonStyle={buttonStyle}>
@@ -100,11 +103,37 @@ const TextImageSlider = ({
   };
 
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % images.length);
+    if (isAnimating.current) return;
+    isAnimating.current = true;
+
+    const slider = sliderRef.current;
+    gsap.to(slider, {
+      x: "-100%",
+      duration: 0.8,
+      ease: "power2.inOut",
+      onComplete: () => {
+        setCurrentIndex((prev) => (prev + 1) % images.length);
+        gsap.set(slider, { x: "0%" });
+        isAnimating.current = false;
+      }
+    });
   };
 
   const handlePrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+    if (isAnimating.current) return;
+    isAnimating.current = true;
+
+    const slider = sliderRef.current;
+    gsap.set(slider, { x: "-100%" });
+    gsap.to(slider, {
+      x: "0%",
+      duration: 0.6,
+      ease: "power1.inOut",
+      onComplete: () => {
+        setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+        isAnimating.current = false;
+      }
+    });
   };
 
   const visibleImages = getVisibleImages();
@@ -113,17 +142,17 @@ const TextImageSlider = ({
     <div className="w-full md:w-1/2 relative order-2 md:order-none h-[400px] md:h-auto flex items-center">
       <div className="w-full h-full relative overflow-hidden">
         <div
-          className="flex gap-4 transition-transform duration-500 ease-in-out absolute inset-0"
+          ref={sliderRef}
+          className="flex absolute inset-0"
           style={{
-            transform: `translateX(calc(-${416}px + 50% - 208px))`,
+            transform: "translateX(0%)",
             willChange: "transform"
           }}
         >
           {visibleImages.map((src, index) => (
             <div
               key={`${currentIndex}-${index}`}
-              className="flex-shrink-0 h-full"
-              style={{ width: "400px" }}
+              className="flex-shrink-0 h-full w-full"
             >
               <div className="relative w-full h-full">
                 <Image
@@ -131,7 +160,7 @@ const TextImageSlider = ({
                   alt={index === 1 ? title : `Slide`}
                   fill
                   className="object-cover rounded-lg"
-                  sizes="400px"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   priority={true}
                 />
                 {overlayOpacity > 0 && (
@@ -190,7 +219,36 @@ const TextImageSlider = ({
           <button
             key={index}
             onClick={() => {
-              setCurrentIndex(index);
+              if (isAnimating.current) return;
+              if (index === currentIndex) return;
+
+              isAnimating.current = true;
+              const direction = index > currentIndex ? 1 : -1;
+              const slider = sliderRef.current;
+
+              if (direction > 0) {
+                gsap.to(slider, {
+                  x: "-100%",
+                  duration: 0.6,
+                  ease: "power1.inOut",
+                  onComplete: () => {
+                    setCurrentIndex(index);
+                    gsap.set(slider, { x: "0%" });
+                    isAnimating.current = false;
+                  }
+                });
+              } else {
+                gsap.set(slider, { x: "-100%" });
+                gsap.to(slider, {
+                  x: "0%",
+                  duration: 0.6,
+                  ease: "power1.inOut",
+                  onComplete: () => {
+                    setCurrentIndex(index);
+                    isAnimating.current = false;
+                  }
+                });
+              }
             }}
             className={`w-2 h-2 rounded-full transition-colors cursor-pointer ${
               index === currentIndex
