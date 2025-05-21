@@ -46,7 +46,7 @@ export default function Contact() {
         height='h-[40vh]'
       />
 
-      <div className='container mx-auto px-4 md:px-8 py-16 space-y-16'>
+      <div className='container mx-auto px-4 md:px-8 py-6 space-y-16'>
         <TextImageSlider
           title='Om Moonrise'
           text1='Moonrise er Danmarks første godkendte udbyder af lysdroneshows - en ny, bæredygtig og spektakulær måde at skabe visuelle oplevelser på. Vi kombinerer avanceret teknologi med kreativt design for at levere shows, der forvandler nattehimlen til levende fortællinger i lys og bevægelse.'

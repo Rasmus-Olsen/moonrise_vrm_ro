@@ -49,7 +49,7 @@ const ShowCard = ({ image, title, description, date, adresse }) => {
               href={googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-400/60 bg-blue-400/10 px-2 py-0.5 rounded hover:bg-blue-400/20 hover:text-blue-400/80 transition-all duration-200 flex items-center space-x-1"
+              className="show-address bg-blue-400/10 px-2 py-0.5 rounded hover:bg-blue-400/20 flex items-center space-x-1"
             >
               <svg
                 className="w-3.5 h-3.5"
