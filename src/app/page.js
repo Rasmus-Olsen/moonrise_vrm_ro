@@ -204,7 +204,7 @@ export default function Home() {
         ]}
       />
 
-      <Process
+      {/* <Process
         title="Workflow"
         items={[
           {
@@ -237,7 +237,7 @@ export default function Home() {
             description: "Læn dig tilbage og nyd det spektakulære droneshow"
           }
         ]}
-      />
+      /> */}
 
       <div className="container mt-24 mx-auto px-4 md:px-8" ref={el => sectionRef.current[1] = el}>
         <div className="max-w-5xl mx-auto text-center">

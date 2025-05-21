@@ -86,7 +86,7 @@ Vores erfaring med tekniske produktioner gennem SimpleCreations, kombineret med 
         ]}
       />
 
-      <Process
+      {/* <Process
         title='Sådan arbejder vi'
         items={[
           {
@@ -119,7 +119,7 @@ Vores erfaring med tekniske produktioner gennem SimpleCreations, kombineret med 
             description: 'Læn dig tilbage og nyd det spektakulære droneshow'
           }
         ]}
-      />
+      /> */}
       <div className='container mx-auto px-4 md:px-8 py-6 space-y-16'>
         <TextImageSlider
           title='Første godkendte droneshow-udbyder i Danmark'
