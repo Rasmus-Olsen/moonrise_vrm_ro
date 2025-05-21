@@ -28,61 +28,28 @@ const Process = ({ title, items = [] }) => {
     cleanup();
 
     const timer = setTimeout(() => {
+      const section = sectionRef.current;
       const panels = gsap.utils.toArray(".panel");
       const container = document.querySelector(".process-container");
 
-      // Horizontal scroll effect without snapping
+      // Beregn total scroll distance
+      const totalPanels = panels.length;
+      const totalWidth = container.scrollWidth;
+      const viewportWidth = window.innerWidth;
+      const scrollDistance = totalWidth - viewportWidth;
+
+      // Pin sektionen og scroll horisontalt
       gsap.to(panels, {
-        xPercent: -100 * (panels.length - 1),
+        xPercent: -100 * (totalPanels - 1),
         ease: "none",
         scrollTrigger: {
-          trigger: container,
+          trigger: section,
+          start: "top top",
+          end: () => `+=${scrollDistance}`,
           pin: true,
-          scrub: true,
-          anticipatePin: 1, // Hjælper med smooth pinning
-          // Her tilføjer vi halvdelen af viewportbredden til enden,
-          // så sidste panel kan slutte midt på skærmen
-          end: () => {
-            const totalWidth = container.scrollWidth;
-            const viewportWidth = window.innerWidth;
-            const scrollDistance = totalWidth - viewportWidth;
-            return "+=" + scrollDistance;
-          }
-        }
-      });
-
-      // Fade/scale animation per panel med specialbehandling for første og sidste
-      panels.forEach((panel, i) => {
-        const totalPanels = panels.length;
-        const isFirst = i === 0;
-        const isLast = i === totalPanels - 1;
-
-        let start = "center center";
-        let end = "center center";
-
-        if (isFirst) {
-          start = "left center";
-          end = "center center";
-        } else if (isLast) {
-          start = "center center";
-          end = "right center";
-        }
-
-        gsap.fromTo(
-          panel,
-          { autoAlpha: 0, scale: 0.95, y: 20 },
-          {
-            autoAlpha: 1,
-            scale: 1,
-            y: 0,
-            scrollTrigger: {
-              trigger: panel,
-              start,
-              end,
-              scrub: true
-            }
-          }
-        );
+          anticipatePin: 1,
+          scrub: 1,
+        },
       });
     }, 100);
 
@@ -93,23 +60,28 @@ const Process = ({ title, items = [] }) => {
   }, [items]);
 
   return (
-    <>
-      {/* Header */}
-      <section className="flex flex-col items-center bg-black text-white pt-30 ">
+    <section
+      ref={sectionRef}
+      className="bg-black text-white h-screen relative overflow-hidden"
+    >
+      {/* Fast header i toppen */}
+      <div className="absolute top-0 left-0 right-0 pt-24 pb-8 z-10 bg-black">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold">
+          <h2 className="text-4xl font-bold mb-4">
             <TranslatedText>{title}</TranslatedText>
           </h2>
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+            <TranslatedText>
+              Scroll for at udforske processen og se hvordan vi arbejder
+            </TranslatedText>
+          </p>
         </div>
-      </section>
+      </div>
 
-      {/* Process Panels */}
-      <section
-        ref={sectionRef}
-        className="bg-pink-500 text-white overflow-hidden min-h-screen"
-      >
+      {/* Scrollende panels container */}
+      <div className="h-screen pt-32">
         <div
-          className="process-container h-screen flex flex-nowrap"
+          className="process-container h-[calc(100vh-8rem)] flex flex-nowrap"
           style={{ width: `${items.length * 100}%` }}
         >
           {items.map((item, index) => {
@@ -117,16 +89,20 @@ const Process = ({ title, items = [] }) => {
             return (
               <div
                 key={index}
-                className="panel w-screen h-screen flex items-center justify-center px-12"
+                className="panel w-screen h-[calc(100vh-8rem)] flex items-center justify-center px-12"
               >
                 <div className="max-w-2xl text-center">
                   <div className="flex flex-col items-center gap-4 mb-6">
-                    {Icon && <Icon className="text-5xl text-white" />}
+                    {Icon && (
+                      <div className="p-6 rounded-full inline-block">
+                        <Icon className="text-5xl text-gray-400" />
+                      </div>
+                    )}
                     <h3 className="text-4xl font-semibold">
                       <TranslatedText>{item.title}</TranslatedText>
                     </h3>
                   </div>
-                  <p className="text-lg text-gray-300 leading-relaxed">
+                  <p className="text-lg text-gray-400 leading-relaxed">
                     <TranslatedText>{item.description}</TranslatedText>
                   </p>
                 </div>
@@ -134,8 +110,8 @@ const Process = ({ title, items = [] }) => {
             );
           })}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 
