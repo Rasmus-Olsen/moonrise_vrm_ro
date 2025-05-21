@@ -33,7 +33,12 @@ export default function Home() {
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const navShown = { current: false };
+
+    const showNav = () => {
+      if (navShown.current) return;
+      navShown.current = true;
+
       const nav = document.getElementById("main-nav");
       if (nav) {
         gsap.to(nav, {
@@ -43,31 +48,45 @@ export default function Home() {
           ease: "power3.out"
         });
       }
-    }, 3000);
 
-    return () => clearTimeout(timer);
+      window.removeEventListener("scroll", handleScroll);
+    };
+
+    const handleScroll = () => showNav();
+
+    const timer = setTimeout(showNav, 3000);
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
+  // Scroll-triggered animation med context isolering
   useEffect(() => {
     if (!sectionRef.current) return;
 
-    gsap.fromTo(
-      sectionRef.current,
-      { x: -400, opacity: 0 },
-      {
-        x: 0,
-        opacity: 1,
-        duration: 2.2,
-
-        ease: "expo.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 50%", // Her kan du justere, hvornår animationen starter (forklaring længere nede)
-          toggleActions: "play none none none",
-          once: true
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        sectionRef.current,
+        { x: -400, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 2.8,
+          ease: "expo.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 60%",
+            toggleActions: "play none none none",
+            once: true
+          }
         }
-      }
-    );
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -175,7 +194,7 @@ export default function Home() {
       />
 
       <Process
-        title="Sådan arbejder vi"
+        title="Workflow"
         items={[
           {
             icon: FaMapMarkerAlt,
@@ -209,7 +228,7 @@ export default function Home() {
         ]}
       />
 
-      <div className="container mx-auto px-4 md:px-8">
+      <div className="container  mt-24 mx-auto px-4 md:px-8">
         <div className="max-w-5xl mx-auto text-center">
           <h2 className="mb-8">
             <TranslatedText>
@@ -252,7 +271,6 @@ export default function Home() {
               <TranslatedText>Læs mere her</TranslatedText>
             </Button>
           </Link>
-
         </div>
       </div>
     </>
