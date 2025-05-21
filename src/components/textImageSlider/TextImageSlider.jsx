@@ -22,7 +22,7 @@ const TextImageSlider = ({
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const textContent = (
-    <div className="flex flex-col space-y-4 justify-center h-[400px] md:min-h-[400px] md:h-auto">
+    <div className="flex flex-col space-y-4 justify-center min-h-[250px] md:min-h-[400px]">
       <h2 className="text-heading">
         <TranslatedText>{title}</TranslatedText>
       </h2>
@@ -54,7 +54,7 @@ const TextImageSlider = ({
   // Single image mode (TextImage style)
   if (images.length === 1) {
     const imageContent = (
-      <div className="w-full md:w-1/2 relative min-h-[400px] order-2 md:order-none">
+      <div className="w-full md:w-1/2 relative min-h-[250px] md:min-h-[400px] order-2 md:order-none">
         <div className="absolute inset-0">
           <Image
             src={images[0]}
@@ -75,7 +75,7 @@ const TextImageSlider = ({
     );
 
     return (
-      <div className="flex flex-col md:flex-row gap-8 md:items-stretch">
+      <div className="flex flex-col md:flex-row gap-8 md:items-stretch relative">
         {sliderPosition === "left" ? (
           <>
             {imageContent}
@@ -204,7 +204,7 @@ const TextImageSlider = ({
   );
 
   return (
-    <div className="flex flex-col md:flex-row gap-8 md:items-stretch">
+    <div className="flex flex-col md:flex-row gap-8 md:items-stretch relative">
       {sliderPosition === "left" ? (
         <>
           {sliderContent}

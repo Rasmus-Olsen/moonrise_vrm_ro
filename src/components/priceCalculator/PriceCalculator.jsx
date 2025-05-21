@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import TranslatedText from "@/components/translatedText/TranslatedText";
-import { savePrice } from '@/lib/supabase';
+import { savePrice } from "@/lib/supabase";
 
 const PriceCalculator = () => {
   const [formData, setFormData] = useState({
@@ -17,6 +17,16 @@ const PriceCalculator = () => {
   const [submitStatus, setSubmitStatus] = useState("");
   const [droneCount, setDroneCount] = useState(50);
   const FIXED_COST = 10000;
+
+  // Fjern status besked efter 5 sekunder
+  useEffect(() => {
+    if (submitStatus) {
+      const timer = setTimeout(() => {
+        setSubmitStatus("");
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [submitStatus]);
 
   // Opdater droneCount når prisen ændres
   useEffect(() => {
@@ -202,23 +212,24 @@ const PriceCalculator = () => {
                 </TranslatedText>
               </button>
 
-              {/* Vis status besked */}
-              {submitStatus && (
-                <p
-                  className={`mt-4 text-center text-lg font-medium ${
-                    submitStatus === "error" ? "text-red-500" : "text-blue-400"
-                  } !text-opacity-100`}
-                  style={{
-                    color: submitStatus === "error" ? "#ef4444" : "#60a5fa",
-                  }}
-                >
-                  <TranslatedText>
-                    {submitStatus === "error"
-                      ? "Der skete en fejl - prøv igen"
-                      : "Tak! Vi har sendt tilbuddet til din mail"}
-                  </TranslatedText>
-                </p>
-              )}
+              {/* Status besked container med fast højde */}
+              <div className="h-16 relative">
+                {submitStatus && (
+                  <p
+                    className={`absolute inset-0 flex items-center justify-center text-lg font-medium ${
+                      submitStatus === "error"
+                        ? "text-red-500"
+                        : "text-blue-400"
+                    }`}
+                  >
+                    <TranslatedText>
+                      {submitStatus === "error"
+                        ? "Der skete en fejl - prøv igen"
+                        : "Tak! Vi har sendt tilbuddet til din mail"}
+                    </TranslatedText>
+                  </p>
+                )}
+              </div>
             </form>
           </div>
         </div>

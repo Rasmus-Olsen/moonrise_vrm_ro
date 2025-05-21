@@ -72,3 +72,18 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+a, a[href], Link {
+  color: var(--text-color);
+}
+
+/* Override default link color for show addresses */
+a.show-address, a[href].show-address {
+  color: #60a5fa; /* Tailwind blue-400 */
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a.show-address:hover, a[href].show-address:hover {
+  color: #3b82f6; /* Tailwind blue-500 */
+}

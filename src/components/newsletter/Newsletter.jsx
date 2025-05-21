@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import TranslatedText from "@/components/translatedText/TranslatedText";
@@ -10,6 +10,16 @@ const Newsletter = () => {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false); 
+
+  // Fjern status besked efter 5 sekunder
+  useEffect(() => {
+    if (status) {
+      const timer = setTimeout(() => {
+        setStatus("");
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [status]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,10 +34,10 @@ const Newsletter = () => {
 
   return (
     <div className="w-full">
-      <div className="container mx-auto px-4 md:px-8 py-24">
+      <div className="container mx-auto md:px-8 py-8">
         <div className="flex flex-col md:flex-row gap-12">
           {/* Kort sektion */}
-          <div className="flex-1">
+          <div className="flex-1 order-2 md:order-1">
             <div className="relative h-[300px] w-full grayscale">
               <Image
                 src="/assets/images/iframe.png"
@@ -39,7 +49,8 @@ const Newsletter = () => {
           </div>
 
           {/* Kontakt og nyhedsbrev sektion */}
-          <div className="flex-1 flex flex-col justify-between">
+          <div className="flex-1 flex flex-col justify-between order-1 md:order-2">
+            {/* Kontakt information */}
             <div className="space-y-4">
               <div className="space-y-1">
                 <p className="text-white"><TranslatedText>Moonrise Aps</TranslatedText></p>
@@ -59,64 +70,89 @@ const Newsletter = () => {
               </div>
             </div>
 
-            <div className="space-y-4">
-              <p className="text-white"><TranslatedText>Tilmeld dig nyhedsbrevet</TranslatedText></p>
-              <form onSubmit={handleSubmit} className="flex items-stretch gap-2">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email"
-                  required
-                  className="flex-1 bg-white rounded-md px-4 py-2 text-gray-900 placeholder:text-gray-500"
-                />
-                <button
-                  type="submit"
-                  className="bg-[#CAE7EC] text-gray-900 px-4 py-2 rounded-md hover:bg-[#B8D8DE] transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
-                  disabled={isSubmitting}
-                >
-                  <TranslatedText>Tilmeld mig!</TranslatedText>
-                </button>
-              </form>
-            </div>
+            {/* Nyhedsbrev og sociale medier */}
+            <div>
+              {/* Nyhedsbrev formular */}
+              <div className="space-y-4">
+                <p className="text-white mb-2"><TranslatedText>Tilmeld dig nyhedsbrevet</TranslatedText></p>
+                <form onSubmit={handleSubmit}>
+                  <div className="flex items-stretch gap-2">
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Email"
+                      required
+                      className="flex-1 bg-white rounded-md px-4 py-2 text-gray-900 placeholder:text-gray-500"
+                    />
+                    <button
+                      type="submit"
+                      className="bg-[#CAE7EC] text-gray-900 px-4 py-2 rounded-md hover:bg-[#B8D8DE] transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+                      disabled={isSubmitting}
+                    >
+                      <TranslatedText>
+                        {isSubmitting ? "Tilmelder..." : "Tilmeld mig!"}
+                      </TranslatedText>
+                    </button>
+                  </div>
+                  {/* Status besked container med fast højde */}
+                  <div className="h-8 relative">
+                    {status && (
+                      <p
+                        className={`absolute inset-0 flex items-center text-sm font-medium ${
+                          status === "success" ? "text-green-400" : "text-red-400"
+                        }`}
+                      >
+                        <TranslatedText>
+                          {status === "success"
+                            ? "Tak! Du er nu tilmeldt vores nyhedsbrev"
+                            : "Du er allerede tilmeldt vores nyhedsbrev"}
+                        </TranslatedText>
+                      </p>
+                    )}
+                  </div>
+                </form>
+              </div>
 
-            <div className="flex gap-4">
-              <Link
-                href="https://instagram.com"
-                target="_blank"
-                className="hover:opacity-80 transition-opacity"
-              >
-                <Image
-                  src="/assets/images/insta.png"
-                  alt="Instagram"
-                  width={32}
-                  height={32}
-                />
-              </Link>
-              <Link
-                href="https://facebook.com"
-                target="_blank"
-                className="hover:opacity-80 transition-opacity"
-              >
-                <Image
-                  src="/assets/images/facebook.png"
-                  alt="Facebook"
-                  width={32}
-                  height={32}
-                />
-              </Link>
-              <Link
-                href="https://linkedin.com"
-                target="_blank"
-                className="hover:opacity-80 transition-opacity"
-              >
-                <Image
-                  src="/assets/images/linkedIn.png"
-                  alt="LinkedIn"
-                  width={32}
-                  height={32}
-                />
-              </Link>
+              {/* Sociale medier links */}
+              <div className="flex gap-4">
+                <Link
+                  href="https://instagram.com"
+                  target="_blank"
+                  className="hover:opacity-80 transition-opacity"
+                >
+                  <Image
+                    src="/assets/images/insta.png"
+                    alt="Instagram"
+                    width={32}
+                    height={32}
+                  />
+                </Link>
+                <Link
+                  href="https://facebook.com"
+                  target="_blank"
+                  className="hover:opacity-80 transition-opacity"
+                >
+                  <Image
+                    src="/assets/images/facebook.png"
+                    alt="Facebook"
+                    width={32}
+                    height={32}
+                  />
+                </Link>
+                <Link
+                  href="https://linkedin.com"
+                  target="_blank"
+                  className="hover:opacity-80 transition-opacity"
+                >
+                  <Image
+                    src="/assets/images/linkedIn.png"
+                    alt="LinkedIn"
+                    width={32}
+                    height={32}
+                  />
+                </Link>
+              </div>
             </div>
           </div>
         </div>
