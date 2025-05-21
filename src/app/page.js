@@ -30,7 +30,7 @@ const Button = dynamic(() => import("@/components/button/Button"));
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
-  const sectionRef = useRef(null);
+  const sectionRef = useRef([]);
 
   useEffect(() => {
     const navShown = { current: false };
@@ -63,30 +63,41 @@ export default function Home() {
     };
   }, []);
 
-  // Scroll-triggered animation med context isolering
   useEffect(() => {
-    if (!sectionRef.current) return;
+    if (!sectionRef.current.length) return;
 
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        sectionRef.current,
-        { x: -400, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          duration: 2.8,
-          ease: "expo.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 60%",
-            toggleActions: "play none none none",
-            once: true
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Kør animation når elementet er synligt
+            gsap.to(entry.target, {
+              x: 0,
+              opacity: 1,
+              duration: 2,
+              ease: "power3.out"
+            });
+            observer.unobserve(entry.target);
           }
-        }
-      );
-    }, sectionRef);
+        });
+      },
+      {
+        threshold: 0.1
+      }
+    );
 
-    return () => ctx.revert();
+    // Sæt initial position og observer på alle sektioner
+    sectionRef.current.forEach(section => {
+      if (section) {
+        gsap.set(section, {
+          x: -200,
+          opacity: 0
+        });
+        observer.observe(section);
+      }
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -109,7 +120,7 @@ export default function Home() {
         />
       </div>
       <div className="w-full bg-black py-16">
-        <div className="container mx-auto px-4 md:px-8" ref={sectionRef}>
+        <div className="container mx-auto px-4 md:px-8" ref={el => sectionRef.current[0] = el}>
           <h2 className="text-center mb-4">
             <TranslatedText>
               Hvor mange droner skal der til et show?
@@ -228,7 +239,7 @@ export default function Home() {
         ]}
       />
 
-      <div className="container  mt-24 mx-auto px-4 md:px-8">
+      <div className="container mt-24 mx-auto px-4 md:px-8" ref={el => sectionRef.current[1] = el}>
         <div className="max-w-5xl mx-auto text-center">
           <h2 className="mb-8">
             <TranslatedText>
