@@ -32,7 +32,7 @@ const Trustpilot = ({ reviews = [] }) => {
     gsap.to(slider, {
       x: "-66.66%",
       duration: 0.8,
-      ease: "none",
+      ease: "power2.inOut",
       onComplete: () => {
         setCurrentIndex((prev) => (prev + 1) % reviews.length);
         setTimeout(() => {
@@ -51,14 +51,16 @@ const Trustpilot = ({ reviews = [] }) => {
     const slider = sliderRef.current;
     const slides = slider.children;
 
-    gsap.set(slider, { x: "0%" });
     gsap.to(slider, {
-      x: "-33.33%",
+      x: "0%",
       duration: 0.8,
-      ease: "none",
+      ease: "power2.inOut",
       onComplete: () => {
         setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
-        isAnimating.current = false;
+        setTimeout(() => {
+          gsap.set(slider, { x: "-33.33%" });
+          isAnimating.current = false;
+        }, 10);
       }
     });
   };
@@ -69,30 +71,30 @@ const Trustpilot = ({ reviews = [] }) => {
 
   return (
     <div className="py-16">
-      <div className="container mx-auto px-4 ">
+      <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-0 !text-white">
             <TranslatedText>Vores kunder taler for os</TranslatedText>
           </h2>
         </div>
 
-        <div className="relative max-w-6xl mx-auto ">
-          <div className="relative overflow-visible">
+        <div className="relative max-w-7xl mx-auto px-12">
+          <div className="relative">
             <div className="overflow-hidden">
               <div
                 ref={sliderRef}
-                className="flex gap-6"
+                className="flex"
                 style={{
                   willChange: "transform",
-                  transform: "translateX(-33.33%)"
+                  transform: "translateX(calc(-100% / 3))"
                 }}
               >
                 {visibleReviews.map((review, index) => (
                   <div
                     key={index}
-                    className="w-full md:w-1/3 flex-shrink-0 p-3"
+                    className="w-[calc(100%/3)] flex-shrink-0 px-3"
                   >
-                    <div className="rounded-xl bg-[var(--background)] border border-[var(--purple)] p-8 h-full shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div className="rounded-xl bg-[var(--background)] border border-[var(--purple)] p-4 md:p-6 lg:p-8 h-full shadow-lg hover:shadow-xl transition-all duration-300">
                       <div className="flex flex-col h-full gap-2">
                         <div className="flex gap-1 mb-2">
                           {[...Array(5)].map((_, i) => (
@@ -135,7 +137,7 @@ const Trustpilot = ({ reviews = [] }) => {
           {/* Navigation buttons */}
           <button
             onClick={handlePrev}
-            className="absolute left-[-20px] top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-black w-10 h-10 rounded-full transition-all cursor-pointer flex items-center justify-center z-20 shadow-lg"
+            className="absolute left-[-40px] top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-black w-10 h-10 rounded-full transition-all cursor-pointer flex items-center justify-center z-20 shadow-lg"
           >
             <svg
               className="w-6 h-6"
@@ -153,7 +155,7 @@ const Trustpilot = ({ reviews = [] }) => {
           </button>
           <button
             onClick={handleNext}
-            className="absolute right-[-20px] top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-black w-10 h-10 rounded-full transition-all cursor-pointer flex items-center justify-center z-20 shadow-lg"
+            className="absolute right-[-40px] top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-black w-10 h-10 rounded-full transition-all cursor-pointer flex items-center justify-center z-20 shadow-lg"
           >
             <svg
               className="w-6 h-6"
@@ -189,7 +191,7 @@ const Trustpilot = ({ reviews = [] }) => {
                     gsap.to(slider, {
                       x: "-66.66%",
                       duration: 0.8,
-                      ease: "none",
+                      ease: "power2.inOut",
                       onComplete: () => {
                         setCurrentIndex(index);
                         gsap.set(slider, { x: "-33.33%" });
@@ -201,7 +203,7 @@ const Trustpilot = ({ reviews = [] }) => {
                     gsap.to(slider, {
                       x: "-33.33%",
                       duration: 0.8,
-                      ease: "none",
+                      ease: "power2.inOut",
                       onComplete: () => {
                         setCurrentIndex(index);
                         isAnimating.current = false;
