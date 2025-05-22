@@ -6,17 +6,17 @@ export default function BurgerMenu({ isOpen, onClick }) {
       aria-label={isOpen ? "Close menu" : "Open menu"}
     >
       <span
-        className={`block w-8 h-0.5 bg-current transform transition-all duration-300 ease-in-out ${
+        className={`block w-8 h-0.5 bg-white transform transition-all duration-300 ease-in-out ${
           isOpen ? "rotate-45 translate-y-2" : ""
         }`}
       />
       <span
-        className={`block w-8 h-0.5 bg-current transform transition-all duration-300 ease-in-out ${
+        className={`block w-8 h-0.5 bg-white transform transition-all duration-300 ease-in-out ${
           isOpen ? "opacity-0 translate-x-3" : ""
         }`}
       />
       <span
-        className={`block w-8 h-0.5 bg-current transform transition-all duration-300 ease-in-out ${
+        className={`block w-8 h-0.5 bg-white transform transition-all duration-300 ease-in-out ${
           isOpen ? "-rotate-45 -translate-y-2" : ""
         }`}
       />

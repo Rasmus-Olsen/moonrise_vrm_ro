@@ -87,7 +87,7 @@ html, body {
   margin: 0;
 }
 
-a, a[href], Link, span {
+a, a[href], Link {
   color: var(--text-color); 
 }
 
