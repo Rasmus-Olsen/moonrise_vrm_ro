@@ -13,6 +13,7 @@ import {
   FaClipboardCheck,
   FaPlay
 } from "react-icons/fa";
+import ProcessTest from "@/components/processTest/ProcessTest";
 
 // Lazy load components
 const TextImageSlider = dynamic(() => import("@/components/textImageSlider/TextImageSlider"), {
@@ -203,6 +204,41 @@ export default function Home() {
           }
         ]}
       />
+
+<ProcessTest
+        title="Workflow"
+        items={[
+          {
+            icon: FaMapMarkerAlt,
+            title: "Site Authorization & Assessment",
+            description:
+              "Vi sikrer de nødvendige tilladelser og vurderer lokationen for sikkerhed"
+          },
+          {
+            icon: FaComments,
+            title: "Story Board Consultation",
+            description:
+              "Vi diskuterer din vision og eventets krav med vores ekspertteam"
+          },
+          {
+            icon: FaPencilRuler,
+            title: "Design & Planning",
+            description:
+              "Sammen skaber vi et skræddersyet droneshow tilpasset dit events tema"
+          },
+          {
+            icon: FaClipboardCheck,
+            title: "Pre-Flight Run-Through",
+            description:
+              "Vi gennemfører en grundig generalprøve for at sikre alt kører perfekt"
+          },
+          {
+            icon: FaPlay,
+            title: "Show Time",
+            description: "Læn dig tilbage og nyd det spektakulære droneshow, Læn dig tilbage og nyd det spektakulære droneshow"
+          }
+        ]}
+      /> 
 
       {/* <Process
         title="Workflow"
