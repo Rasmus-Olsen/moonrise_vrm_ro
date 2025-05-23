@@ -11,7 +11,7 @@ export default function Hero({
   buttonText,
   buttonLink,
   overlayOpacity = 0.4,
-  height = "h-screen"
+  height = "h-screen",
 }) {
   const pathname = usePathname();
   const isHome = pathname === "/"; // Kun forsiden
