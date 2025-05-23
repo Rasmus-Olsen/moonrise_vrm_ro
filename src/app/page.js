@@ -13,7 +13,7 @@ import {
   FaClipboardCheck,
   FaPlay
 } from "react-icons/fa";
-import ProcessTest from "@/components/processTest/ProcessTest";
+import Process from "@/components/process/Process";
 
 // Lazy load components
 const TextImageSlider = dynamic(() => import("@/components/textImageSlider/TextImageSlider"), {
@@ -22,9 +22,6 @@ const TextImageSlider = dynamic(() => import("@/components/textImageSlider/TextI
 const TranslatedText = dynamic(() => import("@/components/translatedText/TranslatedText"));
 const Stats = dynamic(() => import("@/components/stats/Stats"), {
   loading: () => <div className="animate-pulse bg-gray-700 h-[300px] rounded-lg"></div>
-});
-const Process = dynamic(() => import("@/components/process/Process"), {
-  loading: () => <div className="animate-pulse bg-gray-700 h-[400px] rounded-lg"></div>
 });
 const Button = dynamic(() => import("@/components/button/Button"));
 
@@ -205,40 +202,42 @@ export default function Home() {
         ]}
       />
 
-<ProcessTest
-        title="Workflow"
+      <Process
+        title="Din rejse mod et lysshow"
+        description="Fra første kontakt til færdigt show - her er vores proces."
         items={[
           {
             icon: FaMapMarkerAlt,
             title: "Site Authorization & Assessment",
             description:
-              "Vi sikrer de nødvendige tilladelser og vurderer lokationen for sikkerhed"
+              "Vi indhenter tilladelser og vurderer lokationen, så showet kan afvikles sikkert og lovligt."
           },
           {
             icon: FaComments,
             title: "Story Board Consultation",
             description:
-              "Vi diskuterer din vision og eventets krav med vores ekspertteam"
+              "Vi drøfter dine idéer og behov og skaber en tydelig vision, som matcher dit event perfekt."
           },
           {
             icon: FaPencilRuler,
             title: "Design & Planning",
             description:
-              "Sammen skaber vi et skræddersyet droneshow tilpasset dit events tema"
+              "Vi udvikler et visuelt storyboard og tilpasser showets design, lys og timing til dine ønsker."
           },
           {
             icon: FaClipboardCheck,
             title: "Pre-Flight Run-Through",
             description:
-              "Vi gennemfører en grundig generalprøve for at sikre alt kører perfekt"
+              "Hele showet testes i en generalprøve, hvor vi finjusterer detaljer og sikrer, alt fungerer."
           },
           {
             icon: FaPlay,
             title: "Show Time",
-            description: "Læn dig tilbage og nyd det spektakulære droneshow, Læn dig tilbage og nyd det spektakulære droneshow"
+            description:
+              "Dronerne går i luften! Du læner dig tilbage og nyder et uforglemmeligt og unikt lysshow."
           }
         ]}
-      /> 
+      />
 
       {/* <Process
         title="Workflow"
