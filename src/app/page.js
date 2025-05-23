@@ -106,7 +106,7 @@ export default function Home() {
         height="h-[400px] lg:h-[80vh]"
         title="Velkommen til Moonrise"
       />
-      <div className='container mx-auto px-4 md:px-8 py-6 space-y-16'>
+      <div className='container mx-auto px-4 md:px-0 py-6 space-y-16'>
         <TextImageSlider
           title="Hvad er et dronelysshow?"
           text1="Forestil dig en stjerneklar aften, hvor himlen fyldes med lys, mønstre og farver - alt sammen skabt af vores innovative drone lysshow. En aften hvor du oplever noget særligt, som du husker lang tid efter. Dette er vores mission hos Moonrise."
@@ -157,7 +157,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className='container mx-auto px-4 md:px-8 py-6 space-y-16'>
+      <div className='container mx-auto px-4 md:px-0 py-6 space-y-16'>
         <TextImageSlider
           title="Prisstruktur hos Moonrise"
           text1="Hos Moonrise er der forskel på prisen afhængigt af, om kunden vælger et prelavet droneshow eller et skræddersyet  show. Prelaved shows er færdigudviklede koncepter, hvor animationer, lyssætning og sekvenser allerede er planlagt. De kan tilpasses en smule med eksempelvis farver og branding, men kræver mindre udviklingstid og godkendelsesarbejde - og er derfor en mere prisvenlig løsning."

@@ -32,7 +32,7 @@ export default function Service () {
         height='h-[40vh]'
       />
 
-      <div className='container mx-auto px-4 md:px-8 py-6 space-y-16'>
+      <div className='container mx-auto px-4 md:px-0 py-6 space-y-16'>
         <TextImageSlider
           title='Første godkendte droneshow-udbyder i Danmark'
           text1='Moonrise er stolte af at være de første i Danmark, der har opnået officiel godkendelse til at afholde professionelle droneshows.
@@ -123,7 +123,7 @@ Vores erfaring med tekniske produktioner gennem SimpleCreations, kombineret med 
         ]}
       />
       
-      <div className='container mx-auto px-4 md:px-8 py-6 space-y-16'>
+      <div className='container mx-auto px-4 md:px-0 py-6 space-y-16'>
         <TextImageSlider
           title='Første godkendte droneshow-udbyder i Danmark'
           text1='Moonrise er stolte af at være de første i Danmark, der har opnået officiel godkendelse til at afholde professionelle droneshows.

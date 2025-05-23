@@ -36,7 +36,7 @@ export default function Navigation() {
       `}
     >
       <div className="container mx-auto">
-        <div className="flex justify-between items-center p-4">
+        <div className="flex justify-between items-center md:px-0 p-4">
           <Link
             href="/"
             className={`text-2xl font-bold relative group transition-colors ${
