@@ -40,9 +40,9 @@ export default function Contact() {
   return (
     <>
       <Hero
-        backgroundSrc='/assets/images/testimage.jpg'
+        backgroundSrc='/assets/images/contact.png'
         title='Kontakt'
-        overlayOpacity={0.5}
+        overlayOpacity={0}
         height='h-[40vh]'
       />
 
@@ -53,7 +53,7 @@ export default function Contact() {
           text2='Bag Moonrise står et team med stærk teknisk baggrund og mange års erfaring fra event- og filmbranchen gennem SimpleCreations. Vi forstår både det praktiske, det æstetiske og det tekniske, og vi går aldrig på kompromis med sikkerhed eller kvalitet.'
           text3='Uanset om du ønsker et færdigudviklet show eller en specialdesignet løsning, arbejder vi tæt sammen med dig for at skabe en oplevelse, der passer perfekt til dit arrangement - og som dine gæster aldrig glemmer.'
           text4='Vil du vide mere, se tidligere projekter eller høre om mulighederne? Så er du altid velkommen til at kontakte os – vi står klar til at hjælpe.'
-          images={['/assets/images/testimage.jpg']}
+          images={['/assets/images/om-moonrise.png']}
           sliderPosition='right'
         />
 
