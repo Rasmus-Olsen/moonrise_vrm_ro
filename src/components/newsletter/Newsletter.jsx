@@ -3,13 +3,14 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import TranslatedText from "@/components/translatedText/TranslatedText";
+import Button from "@/components/button/Button";
 import { FaPhone, FaEnvelope } from "react-icons/fa";
 import { saveNewsletter } from "@/lib/supabase";
 
 const Newsletter = () => {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false); 
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Fjern status besked efter 5 sekunder
   useEffect(() => {
@@ -53,17 +54,29 @@ const Newsletter = () => {
             {/* Kontakt information */}
             <div className="space-y-4">
               <div className="space-y-1">
-                <p className="text-white"><TranslatedText>Moonrise Aps</TranslatedText></p>
-                <p className="text-white"><TranslatedText>Jernholmen 2 2650</TranslatedText></p>
-                <p className="text-white"><TranslatedText>Hvidovre Danmark</TranslatedText></p>
+                <p className="text-white">
+                  <TranslatedText>Moonrise Aps</TranslatedText>
+                </p>
+                <p className="text-white">
+                  <TranslatedText>Jernholmen 2 2650</TranslatedText>
+                </p>
+                <p className="text-white">
+                  <TranslatedText>Hvidovre Danmark</TranslatedText>
+                </p>
               </div>
 
               <div className="space-y-2">
-                <a href="tel:+4512345678" className="text-white flex items-center gap-2 hover:text-gray-300 transition-colors">
+                <a
+                  href="tel:+4512345678"
+                  className="text-white flex items-center gap-2 hover:text-gray-300 transition-colors"
+                >
                   <FaPhone className="text-[#CAE7EC]" />
                   +45 12 34 56 78
                 </a>
-                <a href="mailto:hello@moonrise.dk" className="text-white flex items-center gap-2 hover:text-gray-300 transition-colors">
+                <a
+                  href="mailto:hello@moonrise.dk"
+                  className="text-white flex items-center gap-2 hover:text-gray-300 transition-colors"
+                >
                   <FaEnvelope className="text-[#CAE7EC]" />
                   hello@moonrise.dk
                 </a>
@@ -74,7 +87,9 @@ const Newsletter = () => {
             <div>
               {/* Nyhedsbrev formular */}
               <div className="space-y-4">
-                <p className="text-white mb-2"><TranslatedText>Tilmeld dig nyhedsbrevet</TranslatedText></p>
+                <p className="text-white mb-2">
+                  <TranslatedText>Tilmeld dig nyhedsbrevet</TranslatedText>
+                </p>
                 <form onSubmit={handleSubmit}>
                   <div className="flex items-stretch gap-2">
                     <input
@@ -83,24 +98,28 @@ const Newsletter = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Email"
                       required
-                      className="flex-1 bg-white rounded-md px-4 py-2 text-gray-900 placeholder:text-gray-500"
+                      className="flex-1 bg-white rounded-md px-4 py-2 text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--blue)] transition-colors"
                     />
-                    <button
-                      type="submit"
-                      className="bg-[#CAE7EC] text-gray-900 px-4 py-2 rounded-md hover:bg-[#B8D8DE] transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
-                      disabled={isSubmitting}
-                    >
-                      <TranslatedText>
-                        {isSubmitting ? "Tilmelder..." : "Tilmeld mig!"}
-                      </TranslatedText>
-                    </button>
+                    <div className="rounded-md overflow-hidden">
+                      <Button
+                        buttonStyle="btn-two"
+                        type="submit"
+                        disabled={isSubmitting}
+                      >
+                        <TranslatedText>
+                          {isSubmitting ? "Tilmelder..." : "Tilmeld mig!"}
+                        </TranslatedText>
+                      </Button>
+                    </div>
                   </div>
                   {/* Status besked container med fast højde */}
                   <div className="h-8 relative">
                     {status && (
                       <p
                         className={`absolute inset-0 flex items-center text-sm font-medium ${
-                          status === "success" ? "text-green-400" : "text-red-400"
+                          status === "success"
+                            ? "text-green-400"
+                            : "text-[--blue]"
                         }`}
                       >
                         <TranslatedText>
