@@ -13,9 +13,9 @@ export default async function Shows() {
   return (
     <>
       <Hero
-        backgroundSrc="/assets/images/testimage.jpg"
+        backgroundSrc="/assets/images/shows.png"
         title="Shows"
-        overlayOpacity={0.5}
+        overlayOpacity={0}
         height="h-[40vh]"
       />
       <ShowsGallery shows={shows} />
