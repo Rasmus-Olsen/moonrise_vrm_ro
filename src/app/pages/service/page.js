@@ -39,7 +39,7 @@ export default function Service() {
       <Hero
         backgroundSrc="/assets/images/drone-himmel.png"
         title="Service"
-        overlayOpacity={0.5}
+        overlayOpacity={0}
         height="h-[40vh]"
       />
 
@@ -144,11 +144,11 @@ Vores erfaring med tekniske produktioner gennem SimpleCreations, kombineret med 
           text3="Hos Moonrise arbejder vi hele tiden på at udvikle vores shows og løfte standarden for, hvad et droneshow kan være i Danmark – både kreativt, teknisk og miljømæssigt."
           text4=""
           images={[
+            "/assets/images/certifikat.webp",
+            "/assets/images/drone-mand.png",
             "/assets/images/drone-legion.jpg",
-            "/assets/images/drone-mand.png",
-            "/assets/images/drone-himmel.png",
-            "/assets/images/drone-mand.png",
-            "/assets/images/drone-himmel.png"
+            "/assets/images/om-moonrise.png",
+            "/assets/images/contact.png"
           ]}
           sliderPosition="right"
         />
