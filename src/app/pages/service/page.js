@@ -86,40 +86,43 @@ Vores erfaring med tekniske produktioner gennem SimpleCreations, kombineret med 
         ]}
       />
 
-      {/* <Process
-        title='Sådan arbejder vi'
+     <Process
+        title="Din rejse mod et lysshow"
+        description="Fra første kontakt til færdigt show - her er vores proces."
         items={[
           {
             icon: FaMapMarkerAlt,
-            title: 'Site Authorization & Assessment',
+            title: "Site Authorization & Assessment",
             description:
-              'Vi sikrer de nødvendige tilladelser og vurderer lokationen for sikkerhed'
+              "Vi indhenter tilladelser og vurderer lokationen, så showet kan afvikles sikkert og lovligt."
           },
           {
             icon: FaComments,
-            title: 'Story Board Consultation',
+            title: "Story Board Consultation",
             description:
-              'Vi diskuterer din vision og eventets krav med vores ekspertteam'
+              "Vi drøfter dine idéer og behov og skaber en tydelig vision, som matcher dit event perfekt."
           },
           {
             icon: FaPencilRuler,
-            title: 'Design & Planning',
+            title: "Design & Planning",
             description:
-              'Sammen skaber vi et skræddersyet droneshow tilpasset dit events tema'
+              "Vi udvikler et visuelt storyboard og tilpasser showets design, lys og timing til dine ønsker."
           },
           {
             icon: FaClipboardCheck,
-            title: 'Pre-Flight Run-Through',
+            title: "Pre-Flight Run-Through",
             description:
-              'Vi gennemfører en grundig generalprøve for at sikre alt kører perfekt'
+              "Hele showet testes i en generalprøve, hvor vi finjusterer detaljer og sikrer, alt fungerer."
           },
           {
             icon: FaPlay,
-            title: 'Show Time',
-            description: 'Læn dig tilbage og nyd det spektakulære droneshow'
+            title: "Show Time",
+            description:
+              "Dronerne går i luften! Du læner dig tilbage og nyder et uforglemmeligt og unikt lysshow."
           }
         ]}
-      /> */}
+      />
+      
       <div className='container mx-auto px-4 md:px-8 py-6 space-y-16'>
         <TextImageSlider
           title='Første godkendte droneshow-udbyder i Danmark'

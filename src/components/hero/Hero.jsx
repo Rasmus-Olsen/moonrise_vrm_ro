@@ -43,7 +43,7 @@ export default function Hero({
 
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4 md:px-8">
         <h1
-          style={{ fontSize: "4rem" }}
+          style={{ fontSize: "4rem", marginTop: "4rem" }}
           className={`font-bold ${
             text || (buttonText && buttonLink) ? "mb-4" : ""
           }`}

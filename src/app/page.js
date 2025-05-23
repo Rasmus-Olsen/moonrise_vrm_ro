@@ -13,6 +13,7 @@ import {
   FaClipboardCheck,
   FaPlay
 } from "react-icons/fa";
+import Process from "@/components/process/Process";
 
 // Lazy load components
 const TextImageSlider = dynamic(() => import("@/components/textImageSlider/TextImageSlider"), {
@@ -21,9 +22,6 @@ const TextImageSlider = dynamic(() => import("@/components/textImageSlider/TextI
 const TranslatedText = dynamic(() => import("@/components/translatedText/TranslatedText"));
 const Stats = dynamic(() => import("@/components/stats/Stats"), {
   loading: () => <div className="animate-pulse bg-gray-700 h-[300px] rounded-lg"></div>
-});
-const Process = dynamic(() => import("@/components/process/Process"), {
-  loading: () => <div className="animate-pulse bg-gray-700 h-[400px] rounded-lg"></div>
 });
 const Button = dynamic(() => import("@/components/button/Button"));
 
@@ -200,6 +198,43 @@ export default function Home() {
             value: 500,
             suffix: "kg",
             description: "I forhold til mellemstore fyrværkeri shows"
+          }
+        ]}
+      />
+
+      <Process
+        title="Din rejse mod et lysshow"
+        description="Fra første kontakt til færdigt show - her er vores proces."
+        items={[
+          {
+            icon: FaMapMarkerAlt,
+            title: "Site Authorization & Assessment",
+            description:
+              "Vi indhenter tilladelser og vurderer lokationen, så showet kan afvikles sikkert og lovligt."
+          },
+          {
+            icon: FaComments,
+            title: "Story Board Consultation",
+            description:
+              "Vi drøfter dine idéer og behov og skaber en tydelig vision, som matcher dit event perfekt."
+          },
+          {
+            icon: FaPencilRuler,
+            title: "Design & Planning",
+            description:
+              "Vi udvikler et visuelt storyboard og tilpasser showets design, lys og timing til dine ønsker."
+          },
+          {
+            icon: FaClipboardCheck,
+            title: "Pre-Flight Run-Through",
+            description:
+              "Hele showet testes i en generalprøve, hvor vi finjusterer detaljer og sikrer, alt fungerer."
+          },
+          {
+            icon: FaPlay,
+            title: "Show Time",
+            description:
+              "Dronerne går i luften! Du læner dig tilbage og nyder et uforglemmeligt og unikt lysshow."
           }
         ]}
       />
