@@ -87,16 +87,16 @@ export default function Navigation() {
               <Link
                 key={route.path}
                 href={route.path}
-                className={`text-lg relative group hover:text-[var(--purple)] transition-colors ${
+                className={`text-lg relative group hover:text-[var(--blue)] transition-colors ${
                   pathname === route.path ? "opacity-100" : "opacity-80"
                 }`}
                 onClick={() => setIsOpen(false)}
               >
-                <span className="group-hover:text-[var(--purple)] transition-colors">
+                <span className="group-hover:text-[var(--blue)] transition-colors">
                   <TranslatedText>{route.label}</TranslatedText>
                 </span>
                 <span
-                  className={`absolute -bottom-1 left-0 w-full h-[2px] bg-[var(--purple)] transform origin-left transition-transform duration-300 ${
+                  className={`absolute -bottom-1 left-0 w-full h-[2px] bg-[var(--blue)] transform origin-left transition-transform duration-300 ${
                     pathname === route.path
                       ? "scale-x-100"
                       : "scale-x-0 group-hover:scale-x-100"
