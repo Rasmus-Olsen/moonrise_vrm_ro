@@ -2,10 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import TranslatedText from "@/components/translatedText/TranslatedText";
 
 export default function ProcessTest({ title, items, description }) {
   const containerRef = useRef(null);
   const lineRef = useRef(null);
+  const whiteLineRef = useRef(null);
   const stepRefs = useRef([]);
   const [activeStep, setActiveStep] = useState(-1);
   const [iconPositions, setIconPositions] = useState([]);
@@ -20,17 +22,21 @@ export default function ProcessTest({ title, items, description }) {
     const handleScroll = () => {
       const container = containerRef.current;
       const line = lineRef.current;
-      if (!container || !line) return;
+      const whiteLine = whiteLineRef.current;
+      if (!container || !line || !whiteLine) return;
 
       const rect = container.getBoundingClientRect();
       const scrollTop = window.scrollY;
       const offsetTop = rect.top + scrollTop;
-      const maxHeight = container.scrollHeight;
+
+      const lastOffset = iconPositions[iconPositions.length - 1] ?? 0;
+      const maxLineHeight = lastOffset + 20;
 
       const currentScroll = scrollTop + window.innerHeight / 2 - offsetTop;
-      const clampedHeight = Math.min(Math.max(currentScroll, 0), maxHeight);
+      const clampedHeight = Math.min(Math.max(currentScroll, 0), maxLineHeight);
 
       line.style.height = `${clampedHeight}px`;
+      whiteLine.style.height = `${maxLineHeight}px`;
 
       stepRefs.current.forEach((el, index) => {
         if (clampedHeight >= el.offsetTop - 40) {
@@ -43,22 +49,27 @@ export default function ProcessTest({ title, items, description }) {
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [items]);
+  }, [items, iconPositions]);
 
   return (
     <section className="py-20 relative">
       <div className="max-w-5xl mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-4">{title}</h2>
-        <p className="text-center mb-16">{description}</p>
+        <h2 className="text-4xl font-bold text-center mb-4">
+          <TranslatedText>{title}</TranslatedText>
+        </h2>
+        <p className="text-center mb-16">
+          <TranslatedText>{description}</TranslatedText>
+        </p>
 
         <div ref={containerRef} className="relative">
           {/* White background line */}
           <div
+            ref={whiteLineRef}
             className="absolute top-0 w-1 bg-white z-0 line-background"
             style={{
               left: "50%",
               transform: "translateX(-50%)",
-              height: "100%",
+              height: "0%",
             }}
           ></div>
 
@@ -128,8 +139,12 @@ export default function ProcessTest({ title, items, description }) {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{item.description}</p>
+                    <h3 className="text-xl font-semibold mb-2">
+                      <TranslatedText>{item.title}</TranslatedText>
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      <TranslatedText>{item.description}</TranslatedText>
+                    </p>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -140,4 +155,3 @@ export default function ProcessTest({ title, items, description }) {
     </section>
   );
 }
-

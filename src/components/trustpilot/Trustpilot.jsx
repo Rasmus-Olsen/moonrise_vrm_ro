@@ -9,10 +9,22 @@ const Trustpilot = ({ reviews = [] }) => {
   const sliderRef = useRef(null);
   const isAnimating = useRef(false);
 
-  // Få de 5 synlige reviews (2 forrige, nuværende, 2 næste)
+  const isMobile = () => typeof window !== "undefined" && window.innerWidth < 768;
+
+  const getXValue = (position) => {
+    if (isMobile()) {
+      if (position === "next") return "-200%";
+      if (position === "reset") return "-100%";
+      if (position === "prev") return "0%";
+    } else {
+      if (position === "next") return "-66.66%";
+      if (position === "reset") return "-33.33%";
+      if (position === "prev") return "0%";
+    }
+  };
+
   const getVisibleReviews = () => {
     if (reviews.length <= 3) return reviews;
-
     const visibleReviews = [];
     for (let i = -2; i <= 2; i++) {
       const index = (currentIndex + i + reviews.length) % reviews.length;
@@ -21,52 +33,51 @@ const Trustpilot = ({ reviews = [] }) => {
     return visibleReviews;
   };
 
-  // Gå til næste review
   const handleNext = () => {
     if (isAnimating.current) return;
     isAnimating.current = true;
-
     const slider = sliderRef.current;
-    const slides = slider.children;
 
     gsap.to(slider, {
-      x: "-66.66%",
+      x: getXValue("next"),
       duration: 0.8,
       ease: "power2.inOut",
       onComplete: () => {
         setCurrentIndex((prev) => (prev + 1) % reviews.length);
         setTimeout(() => {
-          gsap.set(slider, { x: "-33.33%" });
+          gsap.set(slider, { x: getXValue("reset") });
           isAnimating.current = false;
         }, 10);
-      }
+      },
     });
   };
 
-  // Gå til forrige review
   const handlePrev = () => {
     if (isAnimating.current) return;
     isAnimating.current = true;
-
     const slider = sliderRef.current;
-    const slides = slider.children;
 
     gsap.to(slider, {
-      x: "0%",
+      x: getXValue("prev"),
       duration: 0.8,
       ease: "power2.inOut",
       onComplete: () => {
         setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
         setTimeout(() => {
-          gsap.set(slider, { x: "-33.33%" });
+          gsap.set(slider, { x: getXValue("reset") });
           isAnimating.current = false;
         }, 10);
-      }
+      },
     });
   };
 
-  if (!reviews.length) return null;
+  useEffect(() => {
+    const slider = sliderRef.current;
+    if (!slider) return;
+    gsap.set(slider, { x: getXValue("reset") });
+  }, []);
 
+  if (!reviews.length) return null;
   const visibleReviews = getVisibleReviews();
 
   return (
@@ -78,33 +89,22 @@ const Trustpilot = ({ reviews = [] }) => {
           </h2>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-12">
+        <div className="relative max-w-7xl mx-auto md:px-12">
           <div className="relative">
             <div className="overflow-hidden">
-              <div
-                ref={sliderRef}
-                className="flex"
-                style={{
-                  willChange: "transform",
-                  transform: "translateX(calc(-100% / 3))"
-                }}
-              >
+              <div ref={sliderRef} className="flex" style={{ willChange: "transform" }}>
                 {visibleReviews.map((review, index) => (
                   <div
                     key={index}
-                    className="w-[calc(100%/3)] flex-shrink-0 px-3"
+                    className="w-full sm:w-full md:w-[calc(100%/3)] flex-shrink-0 px-3"
                   >
-                    <div className="rounded-xl bg-[var(--background)] border border-[var(--purple)] p-4 md:p-6 lg:p-8 h-full shadow-lg hover:shadow-xl transition-all duration-300">
-                      <div className="flex flex-col h-full gap-2">
+                    <div className="h-full flex">
+                      <div className="flex flex-col justify-between w-full min-h-[235px] flex-grow rounded-xl bg-[var(--background)] border border-[var(--blue)] p-4 md:p-6 lg:p-8 shadow-lg hover:shadow-xl transition-all duration-300">
                         <div className="flex gap-1 mb-2">
                           {[...Array(5)].map((_, i) => (
                             <svg
                               key={i}
-                              className={`w-6 h-6 ${
-                                i < (review.stars || 5)
-                                  ? "text-[var(--purple)]"
-                                  : "text-gray-400"
-                              }`}
+                              className={`w-6 h-6 ${i < (review.stars || 5) ? "text-[var(--blue)]" : "text-gray-400"}`}
                               xmlns="http://www.w3.org/2000/svg"
                               viewBox="0 0 24 24"
                               fill="currentColor"
@@ -117,13 +117,13 @@ const Trustpilot = ({ reviews = [] }) => {
                             </svg>
                           ))}
                         </div>
-                        <h3 className="text-xl font-semibold mb-2 !text-[var(--white)]">
+                        <p className="text-l font-semibold mb-2 !text-[var(--white)]">
                           <TranslatedText>{review.heading}</TranslatedText>
-                        </h3>
-                        <p className="!text-[var(--white)] mb-4 flex-grow leading-relaxed">
+                        </p>
+                        <p className="mt-4">
                           <TranslatedText>{review.text}</TranslatedText>
                         </p>
-                        <p className="font-medium !text-[var(--white)]">
+                        <p className="font-medium mt-auto">
                           <TranslatedText>{review.author}</TranslatedText>
                         </p>
                       </div>
@@ -134,88 +134,52 @@ const Trustpilot = ({ reviews = [] }) => {
             </div>
           </div>
 
-          {/* Navigation buttons */}
-          <button
-            onClick={handlePrev}
-            className="absolute left-[-40px] top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-black w-10 h-10 rounded-full transition-all cursor-pointer flex items-center justify-center z-20 shadow-lg"
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
-              />
+          <button onClick={handlePrev} className="absolute left-[-20px] md:left-[-40px] top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-black w-10 h-10 rounded-full transition-all cursor-pointer flex items-center justify-center z-20 shadow-lg">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
-          <button
-            onClick={handleNext}
-            className="absolute right-[-40px] top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-black w-10 h-10 rounded-full transition-all cursor-pointer flex items-center justify-center z-20 shadow-lg"
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
+          <button onClick={handleNext} className="absolute right-[-20px] md:right-[-40px] top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-black w-10 h-10 rounded-full transition-all cursor-pointer flex items-center justify-center z-20 shadow-lg">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
 
-          {/* Dots Navigation */}
           <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-20">
             {reviews.map((_, index) => (
               <button
                 key={index}
                 onClick={() => {
-                  if (isAnimating.current) return;
-                  if (index === currentIndex) return;
-
+                  if (isAnimating.current || index === currentIndex) return;
                   isAnimating.current = true;
                   const direction = index > currentIndex ? 1 : -1;
                   const slider = sliderRef.current;
 
-                  const slides = slider.children;
-
                   if (direction > 0) {
                     gsap.to(slider, {
-                      x: "-66.66%",
+                      x: getXValue("next"),
                       duration: 0.8,
                       ease: "power2.inOut",
                       onComplete: () => {
                         setCurrentIndex(index);
-                        gsap.set(slider, { x: "-33.33%" });
+                        gsap.set(slider, { x: getXValue("reset") });
                         isAnimating.current = false;
-                      }
+                      },
                     });
                   } else {
-                    gsap.set(slider, { x: "0%" });
+                    gsap.set(slider, { x: getXValue("prev") });
                     gsap.to(slider, {
-                      x: "-33.33%",
+                      x: getXValue("reset"),
                       duration: 0.8,
                       ease: "power2.inOut",
                       onComplete: () => {
                         setCurrentIndex(index);
                         isAnimating.current = false;
-                      }
+                      },
                     });
                   }
                 }}
-                className={`w-2 h-2 rounded-full transition-colors cursor-pointer ${
-                  index === currentIndex
-                    ? "bg-white"
-                    : "bg-white/50 hover:bg-white/80"
-                }`}
+                className={`w-2 h-2 rounded-full transition-colors cursor-pointer ${index === currentIndex ? "bg-white" : "bg-white/50 hover:bg-white/80"}`}
               />
             ))}
           </div>
