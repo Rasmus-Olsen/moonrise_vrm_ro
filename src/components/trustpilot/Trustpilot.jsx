@@ -99,7 +99,7 @@ const Trustpilot = ({ reviews = [] }) => {
                     className="w-full sm:w-full md:w-[calc(100%/3)] flex-shrink-0 px-3"
                   >
                     <div className="h-full flex">
-                    <div className="flex flex-col justify-between w-full min-h-[235px] flex-grow rounded-xl bg-[var(--background)] border border-[var(--blue)] p-3 md:p-4 lg:p-5 gap-2 shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div className="flex flex-col justify-between w-full min-h-[235px] flex-grow rounded-xl bg-[var(--background)] border border-[var(--blue)] p-5 gap-2 shadow-lg hover:shadow-xl transition-all duration-300">
                         <div className="flex gap-1">
                           {[...Array(5)].map((_, i) => (
                             <svg
