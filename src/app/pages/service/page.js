@@ -63,7 +63,7 @@ Vores erfaring med tekniske produktioner gennem SimpleCreations, kombineret med 
           text3="Custom Show: Ønsker I en helt unik oplevelse, skaber vi et custom droneshow, designet specifikt til jeres arrangement. Her udvikler vi figurer, animationer og storytelling fra bunden baseret på jeres ideer, brand eller tema. Et custom show giver fuld kreativ frihed, men kræver mere planlægning, udvikling og godkendelse – og derfor også en højere pris."
           text4="Uanset hvad I vælger, arbejder vi tæt sammen med jer for at sikre, at showet skaber præcis den oplevelse, I ønsker."
           sliderPosition="left"
-          images={["/assets/images/testimage.jpg"]}
+          images={["/assets/images/render-1.png", "/assets/images/render-2.png", "/assets/images/render-3.png"]}
         />
       </div>
 
