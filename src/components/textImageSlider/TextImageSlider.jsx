@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import TranslatedText from "../translatedText/TranslatedText";
@@ -24,104 +24,20 @@ const TextImageSlider = ({
   const sliderRef = useRef(null);
   const isAnimating = useRef(false);
 
-  const textContent = (
-    <div className="flex flex-col space-y-4 justify-center min-h-[250px] md:min-h-[400px]">
-      {title && (
-        <h2 className="text-heading">
-          <TranslatedText>{title}</TranslatedText>
-        </h2>
-      )}
-      {text1 && (
-        <p className="text-body">
-          <TranslatedText>{text1}</TranslatedText>
-        </p>
-      )}
-      {text2 && (
-        <p className="text-body">
-          <TranslatedText>{text2}</TranslatedText>
-        </p>
-      )}
-      {text3 && (
-        <p className="text-body">
-          <TranslatedText>{text3}</TranslatedText>
-        </p>
-      )}
-      {text4 && (
-        <p className="text-body">
-          <TranslatedText>{text4}</TranslatedText>
-        </p>
-      )}
-
-      {buttonText && buttonLink && (
-        <Link href={buttonLink} className="mt-6 inline-block">
-          <Button buttonStyle={buttonStyle}>
-            <TranslatedText>{buttonText}</TranslatedText>
-          </Button>
-        </Link>
-      )}
-    </div>
-  );
-
-  // Single image mode (TextImage style)
-  if (images.length === 1) {
-    const imageContent = (
-      <div className="w-full md:w-1/2 relative min-h-[250px] md:min-h-[400px] order-2 md:order-none">
-        <div className="absolute inset-0">
-          <Image
-            src={images[0]}
-            alt={title}
-            fill
-            className="object-cover rounded-lg"
-            sizes="(max-width: 768px) 100vw, 50vw"
-            priority={true}
-          />
-          {overlayOpacity > 0 && (
-            <div
-              className="absolute inset-0 bg-black rounded-lg"
-              style={{ opacity: overlayOpacity }}
-            />
-          )}
-        </div>
-      </div>
-    );
-
-    return (
-      <div className="flex flex-col md:flex-row gap-8 md:items-stretch relative">
-        {sliderPosition === "left" ? (
-          <>
-            {imageContent}
-            <div className="w-full md:w-1/2">{textContent}</div>
-          </>
-        ) : (
-          <>
-            <div className="w-full md:w-1/2">{textContent}</div>
-            {imageContent}
-          </>
-        )}
-      </div>
-    );
-  }
-
-  // Multiple images mode (TextSlider style)
-  const getVisibleImages = () => {
-    const prev = images[(currentIndex - 1 + images.length) % images.length];
-    const current = images[currentIndex];
-    const next = images[(currentIndex + 1) % images.length];
-    return [prev, current, next];
-  };
-
   const handleNext = () => {
     if (isAnimating.current) return;
     isAnimating.current = true;
 
-    const slider = sliderRef.current;
-    gsap.to(slider, {
-      x: "-100%",
+    gsap.to(sliderRef.current, {
+      xPercent: -100,
       duration: 0.8,
       ease: "power2.inOut",
       onComplete: () => {
+        const slider = sliderRef.current;
+        const first = slider.children[0];
+        slider.appendChild(first);
+        gsap.set(slider, { xPercent: 0 });
         setCurrentIndex((prev) => (prev + 1) % images.length);
-        gsap.set(slider, { x: "0%" });
         isAnimating.current = false;
       }
     });
@@ -132,11 +48,14 @@ const TextImageSlider = ({
     isAnimating.current = true;
 
     const slider = sliderRef.current;
-    gsap.set(slider, { x: "-100%" });
+    const last = slider.children[slider.children.length - 1];
+    slider.insertBefore(last, slider.firstChild);
+    gsap.set(slider, { xPercent: -100 });
+
     gsap.to(slider, {
-      x: "0%",
-      duration: 0.6,
-      ease: "power1.inOut",
+      xPercent: 0,
+      duration: 0.8,
+      ease: "power2.inOut",
       onComplete: () => {
         setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
         isAnimating.current = false;
@@ -144,7 +63,29 @@ const TextImageSlider = ({
     });
   };
 
-  const visibleImages = getVisibleImages();
+  const textContent = (
+    <div className="flex flex-col space-y-4 justify-center min-h-[250px] md:min-h-[400px]">
+      {title && (
+        <h2 className="text-heading">
+          <TranslatedText>{title}</TranslatedText>
+        </h2>
+      )}
+      {[text1, text2, text3, text4].map((text, i) =>
+        text ? (
+          <p key={i} className="text-body">
+            <TranslatedText>{text}</TranslatedText>
+          </p>
+        ) : null
+      )}
+      {buttonText && buttonLink && (
+        <Link href={buttonLink} className="mt-6 inline-block">
+          <Button buttonStyle={buttonStyle}>
+            <TranslatedText>{buttonText}</TranslatedText>
+          </Button>
+        </Link>
+      )}
+    </div>
+  );
 
   const sliderContent = (
     <div className="w-full md:w-1/2 relative order-2 md:order-none h-[400px] md:h-auto flex items-center">
@@ -152,32 +93,24 @@ const TextImageSlider = ({
         <div
           ref={sliderRef}
           className="flex absolute inset-0"
-          style={{
-            transform: "translateX(0%)",
-            willChange: "transform"
-          }}
+          style={{ transform: "translateX(0%)", willChange: "transform" }}
         >
-          {visibleImages.map((src, index) => (
-            <div
-              key={`${currentIndex}-${index}`}
-              className="flex-shrink-0 h-full w-full"
-            >
-              <div className="relative w-full h-full">
-                <Image
-                  src={src}
-                  alt={index === 1 ? title : `Slide`}
-                  fill
-                  className="object-cover rounded-lg"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  priority={true}
+          {images.map((src, i) => (
+            <div key={i} className="flex-shrink-0 w-full h-full relative">
+              <Image
+                src={src}
+                alt={`Slide ${i}`}
+                fill
+                className="object-cover rounded-lg"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority
+              />
+              {overlayOpacity > 0 && (
+                <div
+                  className="absolute inset-0 bg-black rounded-lg"
+                  style={{ opacity: overlayOpacity }}
                 />
-                {overlayOpacity > 0 && (
-                  <div
-                    className="absolute inset-0 bg-black rounded-lg"
-                    style={{ opacity: overlayOpacity }}
-                  />
-                )}
-              </div>
+              )}
             </div>
           ))}
         </div>
@@ -220,52 +153,6 @@ const TextImageSlider = ({
           />
         </svg>
       </button>
-
-      {/* Dots Navigation */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-        {images.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => {
-              if (isAnimating.current) return;
-              if (index === currentIndex) return;
-
-              isAnimating.current = true;
-              const direction = index > currentIndex ? 1 : -1;
-              const slider = sliderRef.current;
-
-              if (direction > 0) {
-                gsap.to(slider, {
-                  x: "-100%",
-                  duration: 0.6,
-                  ease: "power1.inOut",
-                  onComplete: () => {
-                    setCurrentIndex(index);
-                    gsap.set(slider, { x: "0%" });
-                    isAnimating.current = false;
-                  }
-                });
-              } else {
-                gsap.set(slider, { x: "-100%" });
-                gsap.to(slider, {
-                  x: "0%",
-                  duration: 0.6,
-                  ease: "power1.inOut",
-                  onComplete: () => {
-                    setCurrentIndex(index);
-                    isAnimating.current = false;
-                  }
-                });
-              }
-            }}
-            className={`w-2 h-2 rounded-full transition-colors cursor-pointer ${
-              index === currentIndex
-                ? "bg-white"
-                : "bg-white/50 hover:bg-white/80"
-            }`}
-          />
-        ))}
-      </div>
     </div>
   );
 
