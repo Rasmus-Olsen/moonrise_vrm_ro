@@ -35,7 +35,7 @@ const StatItem = ({ title, value, suffix = "", description = "" }) => {
     <div ref={ref} className="text-center">
       <div className="text-6xl font-bold mb-2">
         {count}
-        <span className="text-blue-500">{suffix}</span>
+        <span className="text-[var(--blue)]">{suffix}</span>
       </div>
       <h3 className="text-sm uppercase tracking-wide mb-2">
         <TranslatedText>{title}</TranslatedText>
