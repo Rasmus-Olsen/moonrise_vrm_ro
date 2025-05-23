@@ -19,7 +19,7 @@ export default function Prices() {
       <Hero
         backgroundSrc="/assets/images/i-m-zion-wQ5NwAt-Boo-unsplash.jpg"
         title="Priser"
-        overlayOpacity={0.5}
+        overlayOpacity={0}
         height="h-[40vh]"
       />
       <PriceCalculator />

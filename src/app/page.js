@@ -1,6 +1,6 @@
 "use client";
 
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 import Hero from "@/components/hero/Hero";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
@@ -16,12 +16,21 @@ import {
 import Process from "@/components/process/Process";
 
 // Lazy load components
-const TextImageSlider = dynamic(() => import("@/components/textImageSlider/TextImageSlider"), {
-  loading: () => <div className="animate-pulse bg-gray-700 h-[400px] rounded-lg"></div>
-});
-const TranslatedText = dynamic(() => import("@/components/translatedText/TranslatedText"));
+const TextImageSlider = dynamic(
+  () => import("@/components/textImageSlider/TextImageSlider"),
+  {
+    loading: () => (
+      <div className="animate-pulse bg-gray-700 h-[400px] rounded-lg"></div>
+    )
+  }
+);
+const TranslatedText = dynamic(() =>
+  import("@/components/translatedText/TranslatedText")
+);
 const Stats = dynamic(() => import("@/components/stats/Stats"), {
-  loading: () => <div className="animate-pulse bg-gray-700 h-[300px] rounded-lg"></div>
+  loading: () => (
+    <div className="animate-pulse bg-gray-700 h-[300px] rounded-lg"></div>
+  )
 });
 const Button = dynamic(() => import("@/components/button/Button"));
 
@@ -66,7 +75,7 @@ export default function Home() {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
             // Kør animation når elementet er synligt
             gsap.to(entry.target, {
@@ -85,7 +94,7 @@ export default function Home() {
     );
 
     // Sæt initial position og observer på alle sektioner
-    sectionRef.current.forEach(section => {
+    sectionRef.current.forEach((section) => {
       if (section) {
         gsap.set(section, {
           x: -200,
@@ -102,11 +111,11 @@ export default function Home() {
     <>
       <Hero
         backgroundSrc="/assets/movies/moonrise_long.mp4"
-        overlayOpacity={0.4}
+        overlayOpacity={0}
         height="h-[400px] lg:h-[80vh]"
         title="Velkommen til Moonrise"
       />
-      <div className='container mx-auto px-4 md:px-0 py-6 space-y-16'>
+      <div className="container mx-auto px-4 md:px-0 py-6 space-y-16">
         <TextImageSlider
           title="Hvad er et dronelysshow?"
           text1="Forestil dig en stjerneklar aften, hvor himlen fyldes med lys, mønstre og farver - alt sammen skabt af vores innovative drone lysshow. En aften hvor du oplever noget særligt, som du husker lang tid efter. Dette er vores mission hos Moonrise."
@@ -118,7 +127,10 @@ export default function Home() {
         />
       </div>
       <div className="w-full bg-black py-16">
-        <div className="container mx-auto px-4 md:px-8" ref={el => sectionRef.current[0] = el}>
+        <div
+          className="container mx-auto px-4 md:px-8"
+          ref={(el) => (sectionRef.current[0] = el)}
+        >
           <h2 className="text-center mb-4">
             <TranslatedText>
               Hvor mange droner skal der til et show?
@@ -157,7 +169,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className='container mx-auto px-4 md:px-0 py-6 space-y-16'>
+      <div className="container mx-auto px-4 md:px-0 py-6 space-y-16">
         <TextImageSlider
           title="Prisstruktur hos Moonrise"
           text1="Hos Moonrise er der forskel på prisen afhængigt af, om kunden vælger et prelavet droneshow eller et skræddersyet  show. Prelaved shows er færdigudviklede koncepter, hvor animationer, lyssætning og sekvenser allerede er planlagt. De kan tilpasses en smule med eksempelvis farver og branding, men kræver mindre udviklingstid og godkendelsesarbejde - og er derfor en mere prisvenlig løsning."
@@ -274,7 +286,10 @@ export default function Home() {
         ]}
       /> */}
 
-      <div className="container mt-24 mx-auto px-4 md:px-8" ref={el => sectionRef.current[1] = el}>
+      <div
+        className="container mt-24 mx-auto px-4 md:px-8"
+        ref={(el) => (sectionRef.current[1] = el)}
+      >
         <div className="max-w-5xl mx-auto text-center">
           <h2 className="mb-8">
             <TranslatedText>
