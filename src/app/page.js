@@ -175,7 +175,8 @@ export default function Home() {
           text1="Hos Moonrise er der forskel på prisen afhængigt af, om kunden vælger et prelavet droneshow eller et skræddersyet  show. Prelaved shows er færdigudviklede koncepter, hvor animationer, lyssætning og sekvenser allerede er planlagt. De kan tilpasses en smule med eksempelvis farver og branding, men kræver mindre udviklingstid og godkendelsesarbejde - og er derfor en mere prisvenlig løsning."
           text2="Custom shows er derimod specialudviklede efter kundens ønsker og behov. Her designes hele showet fra bunden med unikke animationer, storytelling og koreografi."
           text3="Det kræver mere kreativt arbejde, flere godkendelsesprocesser og tekniske tests, hvilket gør custom shows markant dyrere end de færdige koncepter."
-          images={["/assets/images/moonrise.jpg"]}
+          images={["/assets/images/drone-mand.png"]}
+
           sliderPosition="right"
           overlayOpacity={0.3}
           buttonText="Kontakt os"
