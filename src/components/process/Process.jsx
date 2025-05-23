@@ -69,18 +69,18 @@ export default function ProcessTest({ title, items, description }) {
             style={{
               left: "50%",
               transform: "translateX(-50%)",
-              height: "0%",
+              height: "0%"
             }}
           ></div>
 
           {/* Blue progress line */}
           <div
             ref={lineRef}
-            className="absolute top-0 w-1 bg-blue-500 z-10 progress-line"
+            className="absolute top-0 w-1 bg-[var(--blue)] z-10 progress-line"
             style={{
               left: "50%",
               transform: "translateX(-50%)",
-              height: "0%",
+              height: "0%"
             }}
           ></div>
 
@@ -92,20 +92,20 @@ export default function ProcessTest({ title, items, description }) {
               style={{
                 top: `${iconPositions[index] ?? 0}px`,
                 left: "50%",
-                transform: "translateX(-50%)",
+                transform: "translateX(-50%)"
               }}
             >
-              <div className="w-10 h-10 rounded-full bg-white border-4 border-blue-500 flex items-center justify-center relative">
+              <div className="w-10 h-10 rounded-full bg-white border-4 border-[var(--blue)] flex items-center justify-center relative">
                 <item.icon className="text-blue-500 text-lg z-10" />
                 {activeStep === index && (
                   <motion.div
-                    className="absolute -inset-1 bg-blue-500 rounded-full"
+                    className="absolute -inset-1 bg-[var(--navy)] rounded-full"
                     initial={{ scale: 1, opacity: 0 }}
                     animate={{ scale: [1, 1.5, 1], opacity: [0, 0.5, 0] }}
                     transition={{
                       duration: 1.5,
                       repeat: Infinity,
-                      repeatType: "reverse",
+                      repeatType: "reverse"
                     }}
                   />
                 )}
@@ -126,7 +126,7 @@ export default function ProcessTest({ title, items, description }) {
               viewport={{ once: true, amount: 0.5 }}
               variants={{
                 hidden: { opacity: 0, y: 30 },
-                visible: { opacity: 1, y: 0 },
+                visible: { opacity: 1, y: 0 }
               }}
               transition={{ duration: 0.5 }}
             >
