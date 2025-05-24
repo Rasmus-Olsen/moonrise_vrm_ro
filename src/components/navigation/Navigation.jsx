@@ -69,7 +69,7 @@ export default function Navigation() {
                 ></span>
               </Link>
             ))}
-            <div className="border-l border-opacity-20 pl-6">
+            <div className="border-l border-opacity-20 pl-6 border-white"> 
               <LanguageSwitch />
             </div>
           </div>
