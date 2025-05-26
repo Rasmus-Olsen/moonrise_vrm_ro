@@ -103,11 +103,11 @@ const Newsletter = () => {
             <div>
               {/* Nyhedsbrev formular */}
               <div className="space-y-4">
-                <p className="text-white mb-2">
+                <p className="text-white mb-2 mt-2 md:mt-0">
                   <TranslatedText>Tilmeld dig nyhedsbrevet</TranslatedText>
                 </p>
                 <form onSubmit={handleSubmit}>
-                  <div className="flex items-stretch gap-2">
+                  <div className="flex flex-col items-stretch gap-2 md:flex-row">
                     <div className="flex-1">
                       <input
                         type="email"
