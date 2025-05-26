@@ -54,7 +54,7 @@ const Newsletter = () => {
 
   return (
     <div className="w-full">
-      <div className="container mx-auto md:px-8 py-8">
+      <div className="container mx-auto py-8">
         <div className="flex flex-col md:flex-row gap-12">
           {/* Kort sektion */}
           <div className="flex-1 order-2 md:order-1">
@@ -127,7 +127,7 @@ const Newsletter = () => {
                         required
                         aria-invalid={errors.email ? "true" : "false"}
                         aria-describedby={errors.email ? "email-error" : undefined}
-                        className={`w-full bg-white rounded-md px-4 py-2 text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--blue)] transition-colors ${errors.email ? 'border-2 border-red-500' : ''}`}
+                        className={`w-full h-[50px] bg-white rounded-md px-4 py-2 text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--blue)] transition-colors ${errors.email ? 'border-2 border-red-500' : ''}`}
                       />
                       {errors.email && (
                         <p id="email-error" className="text-red-500 text-sm mt-1" role="alert">
@@ -171,7 +171,7 @@ const Newsletter = () => {
               {/* Sociale medier links */}
               <div className="flex gap-4">
                 <Link
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/moonrise.dk/"
                   target="_blank"
                   className="hover:opacity-80 transition-opacity"
                 >
