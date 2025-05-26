@@ -13,10 +13,10 @@ export default async function Shows() {
   return (
     <>
       <Hero
-        backgroundSrc="/assets/images/shows.png"
+        backgroundSrc="/assets/images/shows.webp"
         title="Shows"
         overlayOpacity={0}
-        height="h-[40vh]"
+        height="h-[50vh]"
       />
       <ShowsGallery shows={shows} />
     </>

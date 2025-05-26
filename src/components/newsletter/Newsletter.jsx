@@ -41,7 +41,7 @@ const Newsletter = () => {
           <div className="flex-1 order-2 md:order-1">
             <div className="relative h-[300px] w-full grayscale">
               <Image
-                src="/assets/images/iframe.png"
+                src="/assets/images/iframe.webp"
                 alt="Moonrise location"
                 fill
                 className="object-cover"
@@ -141,7 +141,7 @@ const Newsletter = () => {
                   className="hover:opacity-80 transition-opacity"
                 >
                   <Image
-                    src="/assets/images/insta.png"
+                    src="/assets/images/insta.webp"
                     alt="Instagram"
                     width={32}
                     height={32}
@@ -153,7 +153,7 @@ const Newsletter = () => {
                   className="hover:opacity-80 transition-opacity"
                 >
                   <Image
-                    src="/assets/images/facebook.png"
+                    src="/assets/images/facebook.webp"
                     alt="Facebook"
                     width={32}
                     height={32}
@@ -165,7 +165,7 @@ const Newsletter = () => {
                   className="hover:opacity-80 transition-opacity"
                 >
                   <Image
-                    src="/assets/images/linkedIn.png"
+                    src="/assets/images/linkedIn.webp"
                     alt="LinkedIn"
                     width={32}
                     height={32}

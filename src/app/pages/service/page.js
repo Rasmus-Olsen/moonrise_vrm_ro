@@ -37,10 +37,10 @@ export default function Service() {
   return (
     <>
       <Hero
-        backgroundSrc="/assets/images/drone-himmel.png"
+        backgroundSrc="/assets/images/om-moonrise.webp"
         title="Service"
         overlayOpacity={0}
-        height="h-[40vh]"
+        height="h-[50vh]"
       />
 
       <div className="container mx-auto px-4 md:px-0 py-6 space-y-16">
@@ -63,7 +63,7 @@ Vores erfaring med tekniske produktioner gennem SimpleCreations, kombineret med 
           text3="Custom Show: Ønsker I en helt unik oplevelse, skaber vi et custom droneshow, designet specifikt til jeres arrangement. Her udvikler vi figurer, animationer og storytelling fra bunden baseret på jeres ideer, brand eller tema. Et custom show giver fuld kreativ frihed, men kræver mere planlægning, udvikling og godkendelse – og derfor også en højere pris."
           text4="Uanset hvad I vælger, arbejder vi tæt sammen med jer for at sikre, at showet skaber præcis den oplevelse, I ønsker."
           sliderPosition="left"
-          images={["/assets/images/render-1.png", "/assets/images/render-2.png", "/assets/images/render-3.png"]}
+          images={["/assets/images/render-1.webp", "/assets/images/render-2.webp", "/assets/images/render-3.webp"]}
         />
       </div>
 
@@ -145,10 +145,10 @@ Vores erfaring med tekniske produktioner gennem SimpleCreations, kombineret med 
           text4=""
           images={[
             "/assets/images/certifikat.webp",
-            "/assets/images/drone-mand.png",
-            "/assets/images/drone-legion.jpg",
-            "/assets/images/om-moonrise.png",
-            "/assets/images/contact.png"
+            "/assets/images/drone-mand.webp",
+            "/assets/images/drone-legion.webp",
+            "/assets/images/om-moonrise.webp",
+            "/assets/images/contact.webp"
           ]}
           sliderPosition="right"
         />

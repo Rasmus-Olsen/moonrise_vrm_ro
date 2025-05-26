@@ -52,7 +52,7 @@ export default function ProcessTest({ title, items, description }) {
   }, [items, iconPositions]);
 
   return (
-    <section className="py-20 relative">
+    <section className="pt-20 pb-2 relative">
       <div className="max-w-5xl mx-auto px-4">
         <h2 className="text-4xl font-bold text-center mb-4">
           <TranslatedText>{title}</TranslatedText>

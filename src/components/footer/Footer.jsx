@@ -38,7 +38,7 @@ export default function Footer() {
           </h3>
           <div className="relative h-[300px] w-full grayscale">
             <Image
-              src="/assets/images/iframe.png"
+              src="/assets/images/iframe.webp"
               alt="Moonrise location"
               fill
               className="object-cover rounded-lg"
@@ -53,12 +53,12 @@ export default function Footer() {
           </h3>
           <div className="flex space-x-4">
             <Link
-              href="https://instagram.com"
+              href="https://www.instagram.com/moonrise.dk/"
               target="_blank"
               className="hover:opacity-80 transition-opacity"
             >
               <Image
-                src="/assets/images/insta.png"
+                src="/assets/images/insta.webp"
                 alt="Instagram"
                 width={32}
                 height={32}
@@ -70,7 +70,7 @@ export default function Footer() {
               className="hover:opacity-80 transition-opacity"
             >
               <Image
-                src="/assets/images/facebook.png"
+                src="/assets/images/facebook.webp"
                 alt="Facebook"
                 width={32}
                 height={32}
@@ -82,7 +82,7 @@ export default function Footer() {
               className="hover:opacity-80 transition-opacity"
             >
               <Image
-                src="/assets/images/linkedIn.png"
+                src="/assets/images/linkedIn.webp"
                 alt="LinkedIn"
                 width={32}
                 height={32}

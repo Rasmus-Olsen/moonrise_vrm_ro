@@ -49,10 +49,10 @@ export default function Contact() {
   return (
     <>
       <Hero
-        backgroundSrc="/assets/images/contact.png"
+        backgroundSrc="/assets/images/contact.webp"
         title="Kontakt"
         overlayOpacity={0}
-        height="h-[40vh]"
+        height="h-[50vh]"
       />
 
       <div className="container mx-auto px-4 md:px-0 py-6 space-y-16">
@@ -63,9 +63,9 @@ export default function Contact() {
           text3="Uanset om du ønsker et færdigudviklet show eller en specialdesignet løsning, arbejder vi tæt sammen med dig for at skabe en oplevelse, der passer perfekt til dit arrangement - og som dine gæster aldrig glemmer."
           text4="Vil du vide mere, se tidligere projekter eller høre om mulighederne? Så er du altid velkommen til at kontakte os – vi står klar til at hjælpe."
           images={[
-            "/assets/images/om-moonrise.png",
-            "/assets/images/drone-mand.png",
-            "/assets/images/shows.png"
+            "/assets/images/om-moonrise.webp",
+            "/assets/images/drone-mand.webp",
+            "/assets/images/shows.webp"
           ]}
           sliderPosition="right"
         />

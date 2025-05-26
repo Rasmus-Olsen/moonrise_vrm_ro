@@ -123,7 +123,7 @@ export default function Home() {
           text3="Vil du høre mere om mulighederne med et drone lysshow?"
           images={["/assets/images/drone-legion.jpg"]}
           sliderPosition="right"
-          overlayOpacity={0.3}
+          overlayOpacity={0}
         />
       </div>
       <div className="w-full bg-black py-16">
@@ -156,9 +156,9 @@ export default function Home() {
               <div key={count} className="flex flex-col items-center grid-item">
                 <div className="relative w-full aspect-video mb-2">
                   <img
-                    src={`/assets/images/drone-${count}.png`}
+                    src={`/assets/images/drone-${count}.webp`}
                     alt={`${count} droner`}
-                    className="w-full h-full object-cover rounded"
+                    className="w-full h-full object-cover"
                   />
                 </div>
                 <p className="text-center font-semibold">
@@ -175,10 +175,10 @@ export default function Home() {
           text1="Hos Moonrise er der forskel på prisen afhængigt af, om kunden vælger et prelavet droneshow eller et skræddersyet  show. Prelaved shows er færdigudviklede koncepter, hvor animationer, lyssætning og sekvenser allerede er planlagt. De kan tilpasses en smule med eksempelvis farver og branding, men kræver mindre udviklingstid og godkendelsesarbejde - og er derfor en mere prisvenlig løsning."
           text2="Custom shows er derimod specialudviklede efter kundens ønsker og behov. Her designes hele showet fra bunden med unikke animationer, storytelling og koreografi."
           text3="Det kræver mere kreativt arbejde, flere godkendelsesprocesser og tekniske tests, hvilket gør custom shows markant dyrere end de færdige koncepter."
-          images={["/assets/images/drone-mand.png"]}
+          images={["/assets/images/drone-mand.webp"]}
 
           sliderPosition="right"
-          overlayOpacity={0.3}
+          overlayOpacity={0}
           buttonText="Kontakt os"
           buttonLink="pages/contact"
           buttonStyle="btn-two"
@@ -252,43 +252,8 @@ export default function Home() {
         ]}
       />
 
-      {/* <Process
-        title="Workflow"
-        items={[
-          {
-            icon: FaMapMarkerAlt,
-            title: "Site Authorization & Assessment",
-            description:
-              "Vi sikrer de nødvendige tilladelser og vurderer lokationen for sikkerhed"
-          },
-          {
-            icon: FaComments,
-            title: "Story Board Consultation",
-            description:
-              "Vi diskuterer din vision og eventets krav med vores ekspertteam"
-          },
-          {
-            icon: FaPencilRuler,
-            title: "Design & Planning",
-            description:
-              "Sammen skaber vi et skræddersyet droneshow tilpasset dit events tema"
-          },
-          {
-            icon: FaClipboardCheck,
-            title: "Pre-Flight Run-Through",
-            description:
-              "Vi gennemfører en grundig generalprøve for at sikre alt kører perfekt"
-          },
-          {
-            icon: FaPlay,
-            title: "Show Time",
-            description: "Læn dig tilbage og nyd det spektakulære droneshow"
-          }
-        ]}
-      /> */}
-
-      <div
-        className="container mt-24 mx-auto px-4 md:px-8"
+<div
+        className="container mt-16 mx-auto px-4"
         ref={(el) => (sectionRef.current[1] = el)}
       >
         <div className="max-w-5xl mx-auto text-center">
