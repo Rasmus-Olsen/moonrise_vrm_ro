@@ -20,7 +20,7 @@ export default function Footer() {
               href="tel:+4512345678"
               className="block transition-opacity hover:opacity-80"
             >
-              +45 12 34 56 78
+              +45 40 27 17 37
             </Link>
             <Link
               href="mailto:hello@moonrise.dk"

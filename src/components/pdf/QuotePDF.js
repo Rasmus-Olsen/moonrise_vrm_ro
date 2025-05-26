@@ -54,7 +54,7 @@ export const generateQuotePDF = ({ name, email, price, droneCount, fixedCost }) 
   doc.text([
     "Moonrise ApS",
     "Email: info@moonrise.dk",
-    "Telefon: +45 XX XX XX XX",
+    "Telefon: +45 40 27 17 37",
     "www.moonrise.dk"
   ], 20, 250);
 
