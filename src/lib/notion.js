@@ -14,7 +14,7 @@ export const getShows = async () => {
 
     return response.results.map(page => {
       const file = page.properties.Images?.files[0];
-      const imageUrl = file?.external?.url || file?.file?.url || '/assets/images/testimage.jpg';
+      const imageUrl = file?.external?.url || file?.file?.url || '/assets/images/testimage.webp';
     
       return {
         id: page.id,

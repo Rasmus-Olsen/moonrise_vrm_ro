@@ -52,7 +52,7 @@ At få tilladelse til at gennemføre lysdroneshows kræver, at man lever op til 
 Vores erfaring med tekniske produktioner gennem SimpleCreations, kombineret med en dyb forståelse for sikkerhed og avanceret dronestyring, gør os i stand til at levere spektakulære shows, der både imponerer og skaber tryghed."
           text3="Hos Moonrise arbejder vi hele tiden på at udvikle vores shows og løfte standarden for, hvad et droneshow kan være i Danmark – både kreativt, teknisk og miljømæssigt."
           text4=""
-          images={["/assets/images/drone-legion.jpg"]}
+          images={["/assets/images/drone-legion.webp"]}
           sliderPosition="right"
         />
 
