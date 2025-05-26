@@ -11,6 +11,12 @@ const Newsletter = () => {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  };
 
   // Fjern status besked efter 5 sekunder
   useEffect(() => {
@@ -24,8 +30,21 @@ const Newsletter = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
+    setErrors({});
     setStatus("");
+
+    // Validate email
+    if (!email.trim()) {
+      setErrors({ email: "Email er påkrævet" });
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setErrors({ email: "Ugyldig email adresse" });
+      return;
+    }
+
+    setIsSubmitting(true);
 
     const result = await saveNewsletter(email);
     setStatus(result.status);
@@ -92,14 +111,33 @@ const Newsletter = () => {
                 </p>
                 <form onSubmit={handleSubmit}>
                   <div className="flex items-stretch gap-2">
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Email"
-                      required
-                      className="flex-1 bg-white rounded-md px-4 py-2 text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--blue)] transition-colors"
-                    />
+                    <div className="flex-1">
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                          if (errors.email) setErrors({});
+                        }}
+                        onBlur={() => {
+                          if (!email.trim()) {
+                            setErrors({ email: "Email er påkrævet" });
+                          } else if (!validateEmail(email)) {
+                            setErrors({ email: "Ugyldig email adresse" });
+                          }
+                        }}
+                        placeholder="Email"
+                        required
+                        aria-invalid={errors.email ? "true" : "false"}
+                        aria-describedby={errors.email ? "email-error" : undefined}
+                        className={`w-full bg-white rounded-md px-4 py-2 text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--blue)] transition-colors ${errors.email ? 'border-2 border-red-500' : ''}`}
+                      />
+                      {errors.email && (
+                        <p id="email-error" className="text-red-500 text-sm mt-1" role="alert">
+                          <TranslatedText>{errors.email}</TranslatedText>
+                        </p>
+                      )}
+                    </div>
                     <div className="rounded-md overflow-hidden">
                       <Button
                         buttonStyle="btn-two"

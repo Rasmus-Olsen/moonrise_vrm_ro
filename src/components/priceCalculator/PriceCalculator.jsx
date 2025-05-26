@@ -15,6 +15,34 @@ const PriceCalculator = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState("");
+  const [errors, setErrors] = useState({});
+
+  const validateForm = () => {
+    const newErrors = {};
+    
+    // Validate name
+    if (!formData.name.trim()) {
+      newErrors.name = "Navn er påkrævet";
+    } else if (formData.name.length < 2) {
+      newErrors.name = "Navn skal være mindst 2 tegn";
+    }
+
+    // Validate email
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!formData.email.trim()) {
+      newErrors.email = "Email er påkrævet";
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = "Ugyldig email adresse";
+    }
+
+    // Validate price
+    if (formData.price < 125000 || formData.price > 500000) {
+      newErrors.price = "Pris skal være mellem 125.000 kr. og 500.000 kr.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
   const [droneCount, setDroneCount] = useState(50);
   const FIXED_COST = 10000;
 
@@ -53,8 +81,13 @@ const PriceCalculator = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
     setSubmitStatus("");
+
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
 
     try {
       // Send PDF via API
@@ -136,14 +169,29 @@ const PriceCalculator = () => {
                 <input
                   type="text"
                   value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                  className="w-full px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:border-blue-500 focus:outline-none"
+                  onChange={(e) => {
+                    setFormData({ ...formData, name: e.target.value });
+                    if (errors.name) setErrors({ ...errors, name: undefined });
+                  }}
+                  onBlur={() => {
+                    if (!formData.name.trim()) {
+                      setErrors({ ...errors, name: "Navn er påkrævet" });
+                    } else if (formData.name.length < 2) {
+                      setErrors({ ...errors, name: "Navn skal være mindst 2 tegn" });
+                    }
+                  }}
+                  className={`w-full px-4 py-2 rounded bg-gray-800 border ${errors.name ? 'border-red-500' : 'border-gray-700'} focus:border-blue-500 focus:outline-none`}
                   required
                   disabled={isSubmitting}
+                  aria-invalid={errors.name ? "true" : "false"}
+                  aria-describedby={errors.name ? "name-error" : undefined}
                   aria-label={<TranslatedText>Indtast dit navn</TranslatedText>}
                 />
+                {errors.name && (
+                  <p id="name-error" className="text-red-500 text-sm mt-1" role="alert">
+                    <TranslatedText>{errors.name}</TranslatedText>
+                  </p>
+                )}
               </div>
 
               <div>
@@ -153,16 +201,32 @@ const PriceCalculator = () => {
                 <input
                   type="email"
                   value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                  className="w-full px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:border-blue-500 focus:outline-none"
+                  onChange={(e) => {
+                    setFormData({ ...formData, email: e.target.value });
+                    if (errors.email) setErrors({ ...errors, email: undefined });
+                  }}
+                  onBlur={() => {
+                    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                    if (!formData.email.trim()) {
+                      setErrors({ ...errors, email: "Email er påkrævet" });
+                    } else if (!emailRegex.test(formData.email)) {
+                      setErrors({ ...errors, email: "Ugyldig email adresse" });
+                    }
+                  }}
+                  className={`w-full px-4 py-2 rounded bg-gray-800 border ${errors.email ? 'border-red-500' : 'border-gray-700'} focus:border-blue-500 focus:outline-none`}
                   required
                   disabled={isSubmitting}
+                  aria-invalid={errors.email ? "true" : "false"}
+                  aria-describedby={errors.email ? "email-error" : undefined}
                   aria-label={
                     <TranslatedText>Indtast din email</TranslatedText>
                   }
                 />
+                {errors.email && (
+                  <p id="email-error" className="text-red-500 text-sm mt-1" role="alert">
+                    <TranslatedText>{errors.email}</TranslatedText>
+                  </p>
+                )}
               </div>
 
               <div>
