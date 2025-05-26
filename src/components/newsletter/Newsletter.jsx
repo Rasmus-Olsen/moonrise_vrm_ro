@@ -77,16 +77,13 @@ const Newsletter = () => {
                   <TranslatedText>Moonrise Aps</TranslatedText>
                 </p>
                 <p className="text-white">
-                  <TranslatedText>Jernholmen 2 2650</TranslatedText>
-                </p>
-                <p className="text-white">
-                  <TranslatedText>Hvidovre Danmark</TranslatedText>
+                  <TranslatedText>Jernholmen 2, 2650 Hvidovre</TranslatedText>
                 </p>
               </div>
 
               <div className="space-y-2">
                 <a
-                  href="tel:+4512345678"
+                  href="tel:+4540271737"
                   className="text-white flex items-center gap-2 hover:text-gray-300 transition-colors"
                 >
                   <FaPhone className="text-[#CAE7EC]" />
