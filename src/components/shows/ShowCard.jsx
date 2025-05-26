@@ -67,6 +67,6 @@ const ShowCard = ({ image, title, description, date, adresse }) => {
       </div>
     </div>
   );
-};
+}; 
 
 export default ShowCard;
