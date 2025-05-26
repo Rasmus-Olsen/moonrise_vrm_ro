@@ -121,7 +121,7 @@ export default function Home() {
           text1="Forestil dig en stjerneklar aften, hvor himlen fyldes med lys, mønstre og farver - alt sammen skabt af vores innovative drone lysshow. En aften hvor du oplever noget særligt, som du husker lang tid efter. Dette er vores mission hos Moonrise."
           text2="Moonrise er den første danske virksomhed certificeret til at udføre drone lysshows. Vi kombinerer teknologi og underholdning for at skabe spektakulære og mindeværdige oplevelser. Med mere end 20 års erfaring inden for liveevents og scenekunst. Hertil 10 års professionel erfaring med droner er vi jeres betroede partner til innovative og bæredygtige drone lysshows."
           text3="Vil du høre mere om mulighederne med et drone lysshow?"
-          images={["/assets/images/drone-legion.jpg"]}
+          images={["/assets/images/drone-legion.webp"]}
           sliderPosition="right"
           overlayOpacity={0}
         />

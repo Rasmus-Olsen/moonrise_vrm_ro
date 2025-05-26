@@ -17,7 +17,7 @@ export default function Prices() {
   return (
     <>
       <Hero
-        backgroundSrc="/assets/images/prices.jpg"
+        backgroundSrc="/assets/images/prices.webp"
         title="Priser"
         overlayOpacity={0}
         height="h-[50vh]"

@@ -118,7 +118,7 @@ const PriceCalculator = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div className="relative aspect-square">
               <Image
-                src={`/assets/images/drone-${droneCount}.png`}
+                src={`/assets/images/drone-${droneCount}.webp`}
                 alt={
                   <TranslatedText>{`Visualisering af ${droneCount} droner`}</TranslatedText>
                 }

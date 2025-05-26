@@ -13,7 +13,7 @@ const TextImageSlider = ({
   text2,
   text3,
   text4,
-  images = ["/assets/images/testimage.jpg"],
+  images = ["/assets/images/testimage.webp"],
   sliderPosition = "left",
   buttonText,
   buttonLink,
