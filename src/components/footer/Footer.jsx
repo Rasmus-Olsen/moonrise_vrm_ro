@@ -16,18 +16,18 @@ export default function Footer() {
             <p className="mb-0 font-bold">Moonrise ApS</p>
             <p className="mb-0">Jernholmen 2</p>
             <p>2650 Hvidovre</p>
-            <a
+            <Link
               href="tel:+4512345678"
               className="block transition-opacity hover:opacity-80"
             >
               +45 12 34 56 78
-            </a>
-            <a
+            </Link>
+            <Link
               href="mailto:hello@moonrise.dk"
               className="block transition-opacity hover:opacity-80"
             >
               hello@moonrise.dk
-            </a>
+            </Link>
           </div>
         </div>
 
