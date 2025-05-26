@@ -7,24 +7,24 @@ import TranslatedText from "@/components/translatedText/TranslatedText";
 export default function Footer() {
   return (
     <footer className="py-6 my-16">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 px-4">
+      <div className="container grid grid-cols-1 gap-8 px-4 mx-auto md:grid-cols-3 md:gap-16">
         <div className="space-y-4">
-          <h3 className="text-xl mb-4">
+          <h3 className="mb-4 text-xl">
             <TranslatedText>Oplysninger</TranslatedText>
           </h3>
           <div className="space-y-2">
-            <p className="font-bold mb-0">Moonrise ApS</p>
-            <p className="mb-0">Jernholmen 2 2650</p>
-            <p>Hvidovre Danmark</p>
+            <p className="mb-0 font-bold">Moonrise ApS</p>
+            <p className="mb-0">Jernholmen 2</p>
+            <p>2650 Hvidovre</p>
             <a
               href="tel:+4512345678"
-              className="block hover:opacity-80 transition-opacity"
+              className="block transition-opacity hover:opacity-80"
             >
               +45 12 34 56 78
             </a>
             <a
               href="mailto:hello@moonrise.dk"
-              className="block hover:opacity-80 transition-opacity"
+              className="block transition-opacity hover:opacity-80"
             >
               hello@moonrise.dk
             </a>
@@ -33,7 +33,7 @@ export default function Footer() {
 
         {/* Adresse/Kort */}
         <div className="space-y-4">
-          <h3 className="text-xl mb-4">
+          <h3 className="mb-4 text-xl">
             <TranslatedText>Adresse</TranslatedText>
           </h3>
           <div className="relative h-[300px] w-full grayscale">
@@ -48,14 +48,14 @@ export default function Footer() {
 
         {/* Social links */}
         <div className="space-y-4">
-          <h3 className="text-xl mb-4">
+          <h3 className="mb-4 text-xl">
             <TranslatedText>Social links</TranslatedText>
           </h3>
           <div className="flex space-x-4">
             <Link
               href="https://instagram.com"
               target="_blank"
-              className="hover:opacity-80 transition-opacity"
+              className="transition-opacity hover:opacity-80"
             >
               <Image
                 src="/assets/images/insta.png"
@@ -67,7 +67,7 @@ export default function Footer() {
             <Link
               href="https://facebook.com"
               target="_blank"
-              className="hover:opacity-80 transition-opacity"
+              className="transition-opacity hover:opacity-80"
             >
               <Image
                 src="/assets/images/facebook.png"
@@ -79,7 +79,7 @@ export default function Footer() {
             <Link
               href="https://linkedin.com"
               target="_blank"
-              className="hover:opacity-80 transition-opacity"
+              className="transition-opacity hover:opacity-80"
             >
               <Image
                 src="/assets/images/linkedIn.png"
@@ -92,7 +92,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 mt-4">
+      <div className="container px-4 mx-auto mt-4">
         <p className="text-sm opacity-80">
           All rights reserved Moonrise ApS {new Date().getFullYear()}
         </p>
