@@ -71,7 +71,7 @@ const Newsletter = () => {
                   className="text-white flex items-center gap-2 hover:text-gray-300 transition-colors"
                 >
                   <FaPhone className="text-[#CAE7EC]" />
-                  +45 12 34 56 78
+                  +45 40 27 17 37
                 </a>
                 <a
                   href="mailto:hello@moonrise.dk"
