@@ -6,7 +6,7 @@ import TranslatedText from "@/components/translatedText/TranslatedText";
 
 export default function Footer() {
   return (
-    <footer className="py-6 my-16">
+    <footer className="py-6 mt-16">
       <div className="container grid grid-cols-1 gap-8 px-4 mx-auto md:grid-cols-3 md:gap-16">
         <div className="space-y-4">
           <h3 className="mb-4 text-xl">
