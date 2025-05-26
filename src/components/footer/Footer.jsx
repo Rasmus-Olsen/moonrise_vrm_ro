@@ -14,10 +14,9 @@ export default function Footer() {
           </h3>
           <div className="space-y-2">
             <p className="mb-0 font-bold">Moonrise ApS</p>
-            <p className="mb-0">Jernholmen 2</p>
-            <p>2650 Hvidovre</p>
+            <p className="mb-0">Jernholmen 2, 2650 Hvidovre</p>
             <Link
-              href="tel:+4512345678"
+              href="tel:+4540271737"
               className="block transition-opacity hover:opacity-80"
             >
               +45 40 27 17 37
