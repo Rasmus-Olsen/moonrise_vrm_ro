@@ -17,10 +17,10 @@ export default function Prices() {
   return (
     <>
       <Hero
-        backgroundSrc="/assets/images/i-m-zion-wQ5NwAt-Boo-unsplash.jpg"
+        backgroundSrc="/assets/images/prices.jpg"
         title="Priser"
         overlayOpacity={0}
-        height="h-[40vh]"
+        height="h-[50vh]"
       />
       <PriceCalculator />
     </>
