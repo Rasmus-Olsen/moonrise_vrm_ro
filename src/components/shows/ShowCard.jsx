@@ -69,4 +69,4 @@ const ShowCard = ({ image, title, description, date, adresse }) => {
   );
 }; 
 
-export default ShowCard;
+export default ShowCard; 
