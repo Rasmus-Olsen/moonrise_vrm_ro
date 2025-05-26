@@ -12,14 +12,19 @@ export const getShows = async () => {
 
     if (!response?.results) return [];
 
-    return response.results.map(page => ({
-      id: page.id,
-      title: page.properties.Title?.rich_text[0]?.plain_text || 'Ingen titel',
-      description: page.properties.Description?.rich_text[0]?.plain_text || '',
-      date: page.properties.Date?.date?.start || '',
-      image: page.properties.Images?.files[0]?.file?.url || '/assets/images/testimage.jpg',
-      adresse: page.properties.Adresse?.rich_text[0]?.plain_text || ''
-    }));
+    return response.results.map(page => {
+      const file = page.properties.Images?.files[0];
+      const imageUrl = file?.external?.url || file?.file?.url || '/assets/images/testimage.jpg';
+    
+      return {
+        id: page.id,
+        title: page.properties.Title?.rich_text[0]?.plain_text || 'Ingen titel',
+        description: page.properties.Description?.rich_text[0]?.plain_text || '',
+        date: page.properties.Date?.date?.start || '',
+        image: imageUrl,
+        adresse: page.properties.Adresse?.rich_text[0]?.plain_text || ''
+      };
+    });
 
   } catch (error) {
     console.error('Fejl ved hentning fra Notion:', error);
