@@ -52,7 +52,8 @@ export default function Button({
         "--x": "50%",
         "--y": "50%",
         "--leave-x": "50%",
-        "--leave-y": "50%"
+        "--leave-y": "50%",
+        fontFamily: "var(--font-bebas-neue) !important"
       }}
     >
       <span
