@@ -39,11 +39,11 @@ export default function Navigation() {
         <div className="flex justify-between items-center md:px-0 p-4">
           <Link
             href="/"
-            className={`text-2xl font-[var(--font-bebas-neue)]  relative group transition-colors ${
+            className={`text-2xl relative group transition-colors ${
               pathname === "/" ? "text-[var(--blue)]" : ""
-            } hover:text-[var(--navy)]`}
+            }`}
           >
-            <TranslatedText className="font-[var(--font-bebas-neue)]">
+            <TranslatedText className="font-[var(--font-bebas-neue)] hover:text-[var(--blue)] transition-colors">
               Moonrise
             </TranslatedText>
           </Link>

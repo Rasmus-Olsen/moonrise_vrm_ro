@@ -50,22 +50,30 @@ const ShowsGallery = ({ shows }) => {
   };
 
   return (
-    <div className="py-16 bg-black">
-      <div className="container mx-auto px-4">
-        {/* Kommende shows */}
-        <div className="mb-16">
+    <div>
+      {/* Kommende shows */}
+      <div className="py-16 bg-[var(--grey)]">
+        <div className="container mx-auto px-4">
           <h2 className="text-2xl font-bold text-white mb-8">
             <TranslatedText>Kommende shows</TranslatedText>
           </h2>
-          {renderShowsGrid(upcomingShows, <TranslatedText>Ingen kommende shows planlagt</TranslatedText>)}
+          {renderShowsGrid(
+            upcomingShows,
+            <TranslatedText>Ingen kommende shows planlagt</TranslatedText>
+          )}
         </div>
+      </div>
 
-        {/* Tidligere shows */}
-        <div>
+      {/* Tidligere shows */}
+      <div className="py-16 bg-black">
+        <div className="container mx-auto px-4">
           <h2 className="text-2xl font-bold text-white mb-8">
             <TranslatedText>Tidligere shows</TranslatedText>
           </h2>
-          {renderShowsGrid(pastShows, <TranslatedText>Ingen tidligere shows at vise</TranslatedText>)}
+          {renderShowsGrid(
+            pastShows,
+            <TranslatedText>Ingen tidligere shows at vise</TranslatedText>
+          )}
         </div>
       </div>
     </div>
