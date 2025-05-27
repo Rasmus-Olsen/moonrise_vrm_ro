@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { translateText } from '@/utils/translate';
 import { useLanguage } from '@/contexts/LanguageContext';
 
-const TranslatedText = ({ children }) => {
+const TranslatedText = ({ children, className = '' }) => {
   const { currentLang } = useLanguage();
   const [translatedText, setTranslatedText] = useState('');
 
@@ -36,8 +36,9 @@ const TranslatedText = ({ children }) => {
 
   // Hvis translatedText er null eller undefined, vis ingenting
   if (translatedText == null) return null;
-  
-  return <>{translatedText}</>;
+
+  return <span className={className}>{translatedText}</span>;
+
 };
 
 export default TranslatedText;
