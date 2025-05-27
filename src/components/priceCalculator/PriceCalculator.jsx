@@ -1,11 +1,36 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import TranslatedText from "@/components/translatedText/TranslatedText";
 import { savePrice } from "@/lib/supabase";
 
 const PriceCalculator = () => {
+  const btnRef = useRef(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = (e) => {
+    if (isSubmitting) return;
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+
+    btnRef.current.style.setProperty("--x", `${x}%`);
+    btnRef.current.style.setProperty("--y", `${y}%`);
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = (e) => {
+    if (isSubmitting) return;
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+
+    btnRef.current.style.setProperty("--leave-x", `${x}%`);
+    btnRef.current.style.setProperty("--leave-y", `${y}%`);
+    setIsHovered(false);
+  };
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -267,13 +292,34 @@ const PriceCalculator = () => {
               </div>
 
               <button
+                ref={btnRef}
                 type="submit"
-                className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors disabled:bg-blue-400"
                 disabled={isSubmitting}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                className="w-full relative overflow-hidden border border-white text-white py-2 px-4 rounded-lg group disabled:opacity-50"
+                style={{
+                  "--x": "50%",
+                  "--y": "50%",
+                  "--leave-x": "50%",
+                  "--leave-y": "50%"
+                }}
               >
-                <TranslatedText>
-                  {isSubmitting ? "Sender..." : "Send tilbud"}
-                </TranslatedText>
+                <span className="relative z-10 transition-colors duration-300 group-hover:text-black">
+                  <TranslatedText>
+                    {isSubmitting ? "Sender..." : "Send tilbud"}
+                  </TranslatedText>
+                </span>
+                <span
+                  className="absolute top-0 left-0 w-full h-full bg-white transition-all duration-300 rounded-lg z-0"
+                  style={{
+                    transform: isHovered ? "scale(1)" : "scale(0)",
+                    opacity: isHovered ? 1 : 0,
+                    transformOrigin: isHovered
+                      ? "var(--x) var(--y)"
+                      : "var(--leave-x) var(--leave-y)"
+                  }}
+                ></span>
               </button>
 
               {/* Status besked container med fast højde */}
