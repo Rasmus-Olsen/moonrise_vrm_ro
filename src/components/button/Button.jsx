@@ -40,7 +40,9 @@ export default function Button({
       onMouseLeave={disabled ? undefined : handleMouseLeave}
       type={type}
       disabled={disabled}
-      className={`relative overflow-hidden border rounded-full px-9 py-3 group inline-block ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'} ${
+      className={`relative overflow-hidden border rounded-full px-9 py-3 group inline-block ${
+        disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+      } ${
         buttonStyle === "btn-one"
           ? "border-black text-black"
           : "border-white text-white"
@@ -67,9 +69,11 @@ export default function Button({
           buttonStyle === "btn-one" ? "bg-black" : "bg-white"
         }`}
         style={{
-          transform: isHovered ? 'scale(1)' : 'scale(0)',
+          transform: isHovered ? "scale(1)" : "scale(0)",
           opacity: isHovered ? 1 : 0,
-          transformOrigin: isHovered ? 'var(--x) var(--y)' : 'var(--leave-x) var(--leave-y)',
+          transformOrigin: isHovered
+            ? "var(--x) var(--y)"
+            : "var(--leave-x) var(--leave-y)",
           transitionProperty: "transform, opacity"
         }}
       ></span>
