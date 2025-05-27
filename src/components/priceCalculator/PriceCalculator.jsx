@@ -134,7 +134,7 @@ const PriceCalculator = () => {
   };
 
   return (
-    <div className="bg-black text-white py-16">
+    <div className="bg-black text-white py-10">
       <div className="container mx-auto px-4">
         <h2 className="text-center mb-8">
           <TranslatedText>Priser</TranslatedText>

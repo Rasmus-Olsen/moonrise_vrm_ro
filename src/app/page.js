@@ -176,7 +176,6 @@ export default function Home() {
           text2="Custom shows er derimod specialudviklede efter kundens ønsker og behov. Her designes hele showet fra bunden med unikke animationer, storytelling og koreografi."
           text3="Det kræver mere kreativt arbejde, flere godkendelsesprocesser og tekniske tests, hvilket gør custom shows markant dyrere end de færdige koncepter."
           images={["/assets/images/drone-mand.webp"]}
-
           sliderPosition="right"
           overlayOpacity={0}
           buttonText="Kontakt os"
@@ -252,7 +251,7 @@ export default function Home() {
         ]}
       />
 
-<div
+      <div
         className="container mt-16 mx-auto px-4"
         ref={(el) => (sectionRef.current[1] = el)}
       >

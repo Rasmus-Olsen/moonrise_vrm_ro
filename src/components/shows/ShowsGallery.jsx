@@ -52,7 +52,7 @@ const ShowsGallery = ({ shows }) => {
   return (
     <div>
       {/* Kommende shows */}
-      <div className="py-16 bg-[var(--grey)]">
+      <div className="py-10 bg-[var(--grey)]">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl font-bold text-white mb-8">
             <TranslatedText>Kommende shows</TranslatedText>

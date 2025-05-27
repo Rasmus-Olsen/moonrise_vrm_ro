@@ -111,7 +111,7 @@ const TextImageSlider = ({
     );
 
     return (
-      <div className="flex flex-col md:flex-row gap-8 md:items-stretch relative">
+      <div className="flex flex-col md:flex-row gap-8 md:items-stretch relative mb-0 py-10">
         {sliderPosition === "left" ? (
           <>
             {imageContent}
@@ -248,7 +248,7 @@ const TextImageSlider = ({
   );
 
   return (
-    <div className="flex flex-col md:flex-row gap-8 md:items-stretch relative">
+    <div className="flex flex-col md:flex-row gap-8 md:items-stretch relative mb-0 py-10">
       {sliderPosition === "left" ? (
         <>
           {sliderContent}
