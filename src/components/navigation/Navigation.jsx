@@ -39,11 +39,13 @@ export default function Navigation() {
         <div className="flex justify-between items-center md:px-0 p-4">
           <Link
             href="/"
-            className={`text-2xl font-bold relative group transition-colors ${
+            className={`text-2xl font-[var(--font-bebas-neue)]  relative group transition-colors ${
               pathname === "/" ? "text-[var(--blue)]" : ""
             } hover:text-[var(--navy)]`}
           >
-            <TranslatedText>Moonrise</TranslatedText>
+            <TranslatedText className="font-[var(--font-bebas-neue)]">
+              Moonrise
+            </TranslatedText>
           </Link>
 
           <BurgerMenu isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
@@ -58,7 +60,9 @@ export default function Navigation() {
                 }`}
               >
                 <span className="group-hover:text-[var(--blue)] transition-colors">
-                  <TranslatedText>{route.label}</TranslatedText>
+                  <TranslatedText className="font-[var(--font-bebas-neue)]">
+                    {route.label}
+                  </TranslatedText>
                 </span>
                 <span
                   className={`absolute -bottom-1 left-0 w-full h-[2px] bg-[var(--blue)] transform origin-left transition-transform duration-300 ${
@@ -69,7 +73,7 @@ export default function Navigation() {
                 ></span>
               </Link>
             ))}
-            <div className="border-l border-opacity-20 pl-6 border-white"> 
+            <div className="border-l border-opacity-20 pl-6 border-white">
               <LanguageSwitch />
             </div>
           </div>
@@ -93,7 +97,9 @@ export default function Navigation() {
                 onClick={() => setIsOpen(false)}
               >
                 <span className="group-hover:text-[var(--blue)] transition-colors">
-                  <TranslatedText>{route.label}</TranslatedText>
+                  <TranslatedText className="font-[var(--font-bebas-neue)]">
+                    {route.label}
+                  </TranslatedText>
                 </span>
                 <span
                   className={`absolute -bottom-1 left-0 w-full h-[2px] bg-[var(--blue)] transform origin-left transition-transform duration-300 ${
