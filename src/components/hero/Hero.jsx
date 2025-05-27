@@ -12,6 +12,7 @@ export default function Hero({
   buttonLink,
   overlayOpacity = 0.4,
   height = "h-screen",
+  className = "",
 }) {
   const pathname = usePathname();
   const isHome = pathname === "/"; // Kun forsiden
@@ -19,7 +20,7 @@ export default function Hero({
   const isVideo = backgroundSrc?.match(/\.(mp4|webm|ogg)$/i);
 
   return (
-    <div className={`relative w-full ${height}`}>
+    <div className={`relative w-full ${height} ${className}`}>
       {isVideo ? (
         <video
           className="absolute inset-0 w-full h-full object-cover"
