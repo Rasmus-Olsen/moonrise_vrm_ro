@@ -113,7 +113,10 @@ export default function Home() {
         backgroundSrc="/assets/movies/moonrise_long.mp4"
         overlayOpacity={0}
         height="h-[400px] lg:h-[80vh]"
-        title="Velkommen til Moonrise"
+        title={{
+          da: "Danmarks første dronelysshows",
+          en: "Denmark's first drone light show"
+        }}
       />
       <div className="container mx-auto px-4 md:px-0 py-6 space-y-16">
         <TextImageSlider
@@ -220,31 +223,31 @@ export default function Home() {
         items={[
           {
             icon: FaMapMarkerAlt,
-            title: "Site Authorization & Assessment",
+            title: "Godkendelse og vurdering af lokation",
             description:
               "Vi indhenter tilladelser og vurderer lokationen, så showet kan afvikles sikkert og lovligt."
           },
           {
             icon: FaComments,
-            title: "Story Board Consultation",
+            title: "Storyboard konsultation",
             description:
               "Vi drøfter dine idéer og behov og skaber en tydelig vision, som matcher dit event perfekt."
           },
           {
             icon: FaPencilRuler,
-            title: "Design & Planning",
+            title: "Design & Planlægning",
             description:
               "Vi udvikler et visuelt storyboard og tilpasser showets design, lys og timing til dine ønsker."
           },
           {
             icon: FaClipboardCheck,
-            title: "Pre-Flight Run-Through",
+            title: "Pre-lufttest (generalprøve)",
             description:
               "Hele showet testes i en generalprøve, hvor vi finjusterer detaljer og sikrer, alt fungerer."
           },
           {
             icon: FaPlay,
-            title: "Show Time",
+            title: "Show afvikling",
             description:
               "Dronerne går i luften! Du læner dig tilbage og nyder et uforglemmeligt og unikt lysshow."
           }

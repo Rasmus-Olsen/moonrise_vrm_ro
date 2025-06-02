@@ -3,6 +3,7 @@
 import TranslatedText from "@/components/translatedText/TranslatedText";
 import AnimatedCharacters from "../animatedCharacters/animatedCharacters";
 import { usePathname } from "next/navigation";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Hero({
   backgroundSrc,
@@ -16,6 +17,7 @@ export default function Hero({
 }) {
   const pathname = usePathname();
   const isHome = pathname === "/"; // Kun forsiden
+  const { currentLang } = useLanguage();
 
   const isVideo = backgroundSrc?.match(/\.(mp4|webm|ogg)$/i);
 
@@ -50,9 +52,9 @@ export default function Hero({
           }`}
         >
           {isHome ? (
-            <AnimatedCharacters text={title} />
+            <AnimatedCharacters text={typeof title === 'object' ? title[currentLang] : title} />
           ) : (
-            <TranslatedText>{title}</TranslatedText>
+            <TranslatedText>{typeof title === 'object' ? title[currentLang] : title}</TranslatedText>
           )}
         </h1>
 
