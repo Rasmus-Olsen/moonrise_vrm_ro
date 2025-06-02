@@ -4,14 +4,17 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import TranslatedText from "@/components/translatedText/TranslatedText";
 import { savePrice } from "@/lib/supabase";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const PriceCalculator = () => {
   const btnRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
+  const { currentLang } = useLanguage();
 
   const handleMouseEnter = (e) => {
     if (isSubmitting) return;
-    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+    const { left, top, width, height } =
+      e.currentTarget.getBoundingClientRect();
     const x = ((e.clientX - left) / width) * 100;
     const y = ((e.clientY - top) / height) * 100;
 
@@ -22,7 +25,8 @@ const PriceCalculator = () => {
 
   const handleMouseLeave = (e) => {
     if (isSubmitting) return;
-    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+    const { left, top, width, height } =
+      e.currentTarget.getBoundingClientRect();
     const x = ((e.clientX - left) / width) * 100;
     const y = ((e.clientY - top) / height) * 100;
 
@@ -44,7 +48,7 @@ const PriceCalculator = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     // Validate name
     if (!formData.name.trim()) {
       newErrors.name = "Navn er påkrævet";
@@ -62,7 +66,12 @@ const PriceCalculator = () => {
 
     // Validate price
     if (formData.price < 125000 || formData.price > 500000) {
-      newErrors.price = "Pris skal være mellem 125.000 kr. og 500.000 kr.";
+      const currency = currentLang === 'en' ? 'DKK' : 'kr.';
+      const min = new Intl.NumberFormat('da-DK').format(125000);
+      const max = new Intl.NumberFormat('da-DK').format(500000);
+      newErrors.price = currentLang === 'en'
+        ? `Price must be between ${min} ${currency} and ${max} ${currency}`
+        : `Pris skal være mellem ${min} ${currency} og ${max} ${currency}`;
     }
 
     setErrors(newErrors);
@@ -96,12 +105,13 @@ const PriceCalculator = () => {
   };
 
   const formatPrice = (price) => {
-    const formattedNumber = new Intl.NumberFormat("da-DK").format(
+    const currency = currentLang === 'en' ? 'DKK' : 'kr.';
+    const formattedNumber = new Intl.NumberFormat('da-DK').format(
       price >= 500000 ? 500000 : price
     );
     return price >= 500000
-      ? `${formattedNumber} kr. +`
-      : `${formattedNumber} kr.`;
+      ? `${formattedNumber} ${currency} +`
+      : `${formattedNumber} ${currency}`;
   };
 
   const handleSubmit = async (e) => {
@@ -125,6 +135,7 @@ const PriceCalculator = () => {
           ...formData,
           droneCount,
           fixedCost: FIXED_COST,
+          language: currentLang, // Tilføj det aktuelle sprog
         }),
       });
 
@@ -202,10 +213,15 @@ const PriceCalculator = () => {
                     if (!formData.name.trim()) {
                       setErrors({ ...errors, name: "Navn er påkrævet" });
                     } else if (formData.name.length < 2) {
-                      setErrors({ ...errors, name: "Navn skal være mindst 2 tegn" });
+                      setErrors({
+                        ...errors,
+                        name: "Navn skal være mindst 2 tegn",
+                      });
                     }
                   }}
-                  className={`w-full px-4 py-2 rounded bg-gray-800 border ${errors.name ? 'border-red-500' : 'border-gray-700'} focus:border-blue-500 focus:outline-none`}
+                  className={`w-full px-4 py-2 rounded bg-gray-800 border ${
+                    errors.name ? "border-red-500" : "border-gray-700"
+                  } focus:border-blue-500 focus:outline-none`}
                   required
                   disabled={isSubmitting}
                   aria-invalid={errors.name ? "true" : "false"}
@@ -213,7 +229,11 @@ const PriceCalculator = () => {
                   aria-label={<TranslatedText>Indtast dit navn</TranslatedText>}
                 />
                 {errors.name && (
-                  <p id="name-error" className="text-red-500 text-sm mt-1" role="alert">
+                  <p
+                    id="name-error"
+                    className="text-red-500 text-sm mt-1"
+                    role="alert"
+                  >
                     <TranslatedText>{errors.name}</TranslatedText>
                   </p>
                 )}
@@ -228,17 +248,21 @@ const PriceCalculator = () => {
                   value={formData.email}
                   onChange={(e) => {
                     setFormData({ ...formData, email: e.target.value });
-                    if (errors.email) setErrors({ ...errors, email: undefined });
+                    if (errors.email)
+                      setErrors({ ...errors, email: undefined });
                   }}
                   onBlur={() => {
-                    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                    const emailRegex =
+                      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
                     if (!formData.email.trim()) {
                       setErrors({ ...errors, email: "Email er påkrævet" });
                     } else if (!emailRegex.test(formData.email)) {
                       setErrors({ ...errors, email: "Ugyldig email adresse" });
                     }
                   }}
-                  className={`w-full px-4 py-2 rounded bg-gray-800 border ${errors.email ? 'border-red-500' : 'border-gray-700'} focus:border-blue-500 focus:outline-none`}
+                  className={`w-full px-4 py-2 rounded bg-gray-800 border ${
+                    errors.email ? "border-red-500" : "border-gray-700"
+                  } focus:border-blue-500 focus:outline-none`}
                   required
                   disabled={isSubmitting}
                   aria-invalid={errors.email ? "true" : "false"}
@@ -248,7 +272,11 @@ const PriceCalculator = () => {
                   }
                 />
                 {errors.email && (
-                  <p id="email-error" className="text-red-500 text-sm mt-1" role="alert">
+                  <p
+                    id="email-error"
+                    className="text-red-500 text-sm mt-1"
+                    role="alert"
+                  >
                     <TranslatedText>{errors.email}</TranslatedText>
                   </p>
                 )}
@@ -302,7 +330,7 @@ const PriceCalculator = () => {
                   "--x": "50%",
                   "--y": "50%",
                   "--leave-x": "50%",
-                  "--leave-y": "50%"
+                  "--leave-y": "50%",
                 }}
               >
                 <span className="relative z-10 transition-colors duration-300 group-hover:text-black">
@@ -317,7 +345,7 @@ const PriceCalculator = () => {
                     opacity: isHovered ? 1 : 0,
                     transformOrigin: isHovered
                       ? "var(--x) var(--y)"
-                      : "var(--leave-x) var(--leave-y)"
+                      : "var(--leave-x) var(--leave-y)",
                   }}
                 ></span>
               </button>
