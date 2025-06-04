@@ -255,7 +255,7 @@ export default function Home() {
       />
 
       <div
-        className="container mt-16 mx-auto px-4"
+        className="container my-16 mx-auto px-4"
         ref={(el) => (sectionRef.current[1] = el)}
       >
         <div className="max-w-5xl mx-auto text-center">
