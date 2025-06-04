@@ -3,6 +3,9 @@ import "./globals.css";
 import Navigation from "@/components/navigation/Navigation";
 import Footer from "@/components/footer/Footer";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import Button from "@/components/button/Button";
+import Link from "next/link";
+import TranslatedText from "@/components/translatedText/TranslatedText";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,6 +41,11 @@ export default function RootLayout({ children }) {
             {children}
           </main>
           <Footer />
+          <div className="fixed bottom-8 right-8 z-50">
+            <Link href="/pages/prices">
+              <Button buttonStyle="btn-three"><TranslatedText>Book show</TranslatedText></Button>
+            </Link>
+          </div>
         </LanguageProvider>
       </body>
     </html>

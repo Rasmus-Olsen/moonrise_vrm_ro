@@ -45,7 +45,11 @@ export default function Button({
       } ${
         buttonStyle === "btn-one"
           ? "border-black text-black"
-          : "border-white text-white"
+          : buttonStyle === "btn-two"
+            ? "border-white text-white"
+            : buttonStyle === "btn-three"
+              ? "border-white text-white bg-black"
+              : "border-black text-black"
       }`}
       style={{
         position: "relative",
@@ -60,14 +64,24 @@ export default function Button({
         className={`relative z-10 transition-colors duration-300 ${
           buttonStyle === "btn-one"
             ? "group-hover:text-white"
-            : "group-hover:text-black"
+            : buttonStyle === "btn-two"
+              ? "group-hover:text-black"
+              : buttonStyle === "btn-three"
+                ? "group-hover:text-black"
+                : "group-hover:text-white"
         }`}
       >
         {children}
       </span>
       <span
         className={`absolute top-0 left-0 w-full h-full rounded-full transition-all duration-300 z-0 ${
-          buttonStyle === "btn-one" ? "bg-black" : "bg-white"
+          buttonStyle === "btn-one" 
+            ? "bg-black" 
+            : buttonStyle === "btn-two" 
+              ? "bg-white" 
+              : buttonStyle === "btn-three" 
+                ? "bg-white"
+                : "bg-black"
         }`}
         style={{
           transform: isHovered ? "scale(1)" : "scale(0)",
