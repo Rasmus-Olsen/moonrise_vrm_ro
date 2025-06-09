@@ -61,7 +61,7 @@ async function getNewsletterFromNotion() {
       filter: {
         property: 'Date',
         date: {
-          equals: '2025-06-02'
+          on_or_before: new Date().toISOString().split('T')[0]
         }
       }
     })
