@@ -88,24 +88,6 @@ async function getNewsletterFromNotion() {
   }
 }
 
-// Marker nyhedsbrev som sendt i Notion
-async function markNewsletterAsSent(pageId) {
-  await fetch(`https://api.notion.com/v1/pages/${pageId}`, {
-    method: 'PATCH',
-    headers: {
-      'Authorization': `Bearer ${process.env.NOTION_API_KEY}`,
-      'Notion-Version': '2022-06-28',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      properties: {
-        'Sendt': {
-          checkbox: true
-        }
-      }
-    })
-  });
-}
 
 // GET route til at tjekke og sende planlagt nyhedsbrev
 export async function GET(request) {
