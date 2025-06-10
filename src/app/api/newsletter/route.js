@@ -112,11 +112,10 @@ export async function GET(request) {
     console.log('Planlagt dato:', scheduledDate);
     console.log('Nuværende dato:', currentDate);
 
-    // Tjek om nyhedsbrevet skal sendes (enten manuelt via Send eller automatisk via dato)
-    const manualSend = newsletter.properties.Send?.checkbox;
+    // Tjek om nyhedsbrevet skal sendes baseret på dato
     const scheduledSend = scheduledDate <= currentDate;
     
-    if (!manualSend && !scheduledSend) {
+    if (!scheduledSend) {
       return NextResponse.json({
         success: false,
         message: 'Nyhedsbrev er ikke klar til at sende endnu',
