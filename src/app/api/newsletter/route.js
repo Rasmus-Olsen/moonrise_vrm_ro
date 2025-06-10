@@ -59,10 +59,20 @@ async function getNewsletterFromNotion() {
     },
     body: JSON.stringify({
       filter: {
-        property: 'Date',
-        date: {
-          on_or_before: new Date().toISOString().split('T')[0]
-        }
+        and: [
+          {
+            property: 'Date',
+            date: {
+              on_or_before: new Date().toISOString().split('T')[0]
+            }
+          },
+          {
+            property: 'Sendt',
+            checkbox: {
+              equals: false
+            }
+          }
+        ]
       }
     })
   });
@@ -88,6 +98,39 @@ async function getNewsletterFromNotion() {
   }
 }
 
+// Marker nyhedsbrev som sendt i Notion
+async function markNewsletterAsSent(pageId) {
+  try {
+    console.log('Markerer nyhedsbrev som sendt i Notion:', pageId);
+    const response = await fetch(`https://api.notion.com/v1/pages/${pageId}`, {
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${process.env.NOTION_API_KEY}`,
+        'Notion-Version': '2022-06-28',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        properties: {
+          'Sendt': {
+            checkbox: true
+          }
+        }
+      })
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      console.error('Notion API fejl ved markering som sendt:', error);
+      throw new Error(`Notion API fejl: ${error.message}`);
+    }
+
+    console.log('Nyhedsbrev markeret som sendt');
+    return true;
+  } catch (error) {
+    console.error('Fejl ved markering af nyhedsbrev som sendt:', error);
+    return false;
+  }
+}
 
 // GET route til at tjekke og sende planlagt nyhedsbrev
 export async function GET(request) {
@@ -167,6 +210,9 @@ export async function GET(request) {
         </div>
       `
     });
+
+    // Marker nyhedsbrevet som sendt i Notion
+    await markNewsletterAsSent(newsletter.id);
 
     return NextResponse.json({
       success: true,
